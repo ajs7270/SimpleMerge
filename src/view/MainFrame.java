@@ -50,12 +50,4 @@ public class MainFrame extends JFrame{
 		this.setSize(400, 400);
 		this.setVisible(true);
 	}
-	
-	
-	public static MainFrame mainFrame;
-	public static void main(String[] data) {
-		mainFrame = new MainFrame();
-	}
-	
-	
 }
