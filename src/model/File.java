@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import javax.swing.JFileChooser;
@@ -15,7 +16,7 @@ import javax.swing.JFileChooser;
 public class File {
 	
 	//파일의 데이터로 line by line으로 데이터가 저장되어 있다.
-	LinkedList<String> data = new LinkedList<String>();
+	List<String> data = new LinkedList<String>();
 		
 	public void load() {
 		
@@ -81,7 +82,10 @@ public class File {
 			}catch (IOException ie) {
 				System.out.println(ie+ "=> 입출력오류");
 			}
-		}
-		
+		}	
+	}
+	
+	public List<String> getData(){
+		return this.data;		
 	}
 }
