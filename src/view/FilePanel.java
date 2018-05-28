@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultHighlighter;
 
-public class FilePanel extends JPanel {
+import view.interfaces.IFilePanel;
+
+public class FilePanel extends JPanel implements IFilePanel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -174,6 +177,23 @@ public class FilePanel extends JPanel {
                 System.out.println(e);
             }
         }
+	}
+
+	@Override
+	public void setLoadAction(ActionListener action) {
+		btnLoad.addActionListener(action);
+		
+	}
+
+	@Override
+	public void setEditAction(ActionListener action) {
+		btnEdit.addActionListener(action);
+		
+	}
+
+	@Override
+	public void setSaveAction(ActionListener action) {
+		btnSave.addActionListener(action);
 	}
 	
 	
