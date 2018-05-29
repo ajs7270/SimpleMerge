@@ -95,40 +95,48 @@ public class FilePanel extends JPanel implements IFilePanel{
 	// ###################################################
 	// PART: Interface part 
 	// ###################################################
-	
+	@Override
 	public int getPanelId() {
 		return this.panelId;
 	}
+	@Override
 	public void setPanelId(int panelId) {
 		this.panelId = panelId;
 	}
 	
+	@Override
 	public String getFileName() {
 		if (fileNameLabel == null) return null;
 		return fileNameLabel.getText();
 	}
+	@Override
 	public void setFileName(String fileName) {
 		if (fileNameLabel == null) return;
 		fileNameLabel.setText(fileName);
 	}
 	
+	@Override
 	public String getText() {
 		if (contentsArea == null) return null;
 		return contentsArea.getText();
 	}
+	@Override
 	public void setText(String text) {
 		if (contentsArea == null) return;
 		contentsArea.setText(text);
 	}
+	@Override
 	public boolean getTextEditable() {
 		if (contentsArea == null) return false;
 		return contentsArea.isEditable();		
 	}
+	@Override
 	public void setTextEditable(boolean editable) {
 		if (contentsArea == null) return;
 		contentsArea.setEditable(editable);
 	}
 	
+	@Override
 	public void initLineColor() {
 		if (lineColor != null) lineColor.clear();
 		lineColor = new ArrayList<>();
@@ -137,6 +145,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private boolean availableLineNum(int lineNum) {
 		return !(lineColor == null || lineColor.size() - 1 < lineNum || lineNum < 0);
 	}
+	@Override
 	public LineColor getLineColor(int lineNum) {
 		if (availableLineNum(lineNum)) {
 			return null;
@@ -146,6 +155,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		}
 	}
 	
+	@Override
 	public void setLineColor(int lineNum, LineColor color) {
 		if (availableLineNum(lineNum)) {
 			return;
@@ -155,6 +165,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		}
 	}
 	
+	@Override
 	public void paintLineColor() {
 		DefaultHighlighter highlighter =  (DefaultHighlighter)contentsArea.getHighlighter();
     	java.awt.Color realColor = null;
