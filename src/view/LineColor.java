@@ -9,5 +9,14 @@ public enum LineColor {
 	public int getColor() {
 		return color;
 	}
-	
+	public static LineColor getLineColor(int color) {
+		switch(color) {
+		case 0:
+			return LineColor.LINE_BLANK;
+		case 1:
+			return LineColor.LINE_COLORED;
+		default:
+			return LINE_BLANK;
+		}
+	}
 }
