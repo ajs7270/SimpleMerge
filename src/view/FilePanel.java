@@ -37,7 +37,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		settingComponents();
 		
 		lineColor.add(LineColor.LINE_BLANK);
-		lineColor.add(LineColor.LINE_COLORED);
+		lineColor.add(LineColor.LINE_PLUS);
 		paintLineColor();
 	}
 	
@@ -192,7 +192,7 @@ public class FilePanel extends JPanel implements IFilePanel{
     	java.awt.Color realColor = null;
         
         for (int index = 0; index < lineColor.size(); index++) {
-        	if (lineColor.get(index).getColor() == LineColor.LINE_COLORED.getColor()) {
+        	if (lineColor.get(index).getColor() == LineColor.LINE_PLUS.getColor()) {
         		realColor = java.awt.Color.RED;
         	}
         	else {
