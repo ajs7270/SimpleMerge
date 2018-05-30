@@ -68,11 +68,11 @@ public class File {
 						new BufferedWriter(new FileWriter(myFile.getAbsolutePath())));
 				
 				//linkedList를 하나의 String으로 바꿈
-				ListIterator<String> it = this.data.listIterator();
+				ListIterator<String> it = (ListIterator<String>)this.data.listIterator();				
 				StringBuilder sb = new StringBuilder();
 				while(it.hasNext()) {
 					sb.append(it.next());
-					sb.append("\n");
+					sb.append("\r\n");
 				}
 				
 				//파일에 저장
