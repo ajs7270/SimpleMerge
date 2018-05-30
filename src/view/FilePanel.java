@@ -82,10 +82,6 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private void settingComponents() {
 		btnEdit.addActionListener((actionEvent)->{
 			System.out.println("edit event call");
-			List<Integer> list = this.getDraggedLine();
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i));
-			}
 		});
 		btnSave.addActionListener((actionEvent)->{
 			System.out.println("save event call");
