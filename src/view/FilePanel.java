@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -93,6 +94,21 @@ public class FilePanel extends JPanel implements IFilePanel{
 		contentsArea.setDragEnabled(true);
 	}
 	
+	private Color getColor(LineColor color){
+		switch(color) {
+		case LINE_BLANK:
+			return Color.WHITE;
+		case LINE_PLUS:
+			return Color.green;
+		case LINE_MINUS:
+			return Color.red;
+		case LINE_DIFF:
+			return Color.YELLOW;
+		default:
+			return Color.WHITE;
+		}
+	}
+	
 	
 	// ###################################################
 	// PART: Interface part 
@@ -136,6 +152,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 	public void setTextEditable(boolean editable) {
 		if (contentsArea == null) return;
 		contentsArea.setEditable(editable);
+		contentsArea.setDragEnabled(true);
 	}
 	
 	@Override
@@ -189,15 +206,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 	@Override
 	public void paintLineColor() {
 		DefaultHighlighter highlighter =  (DefaultHighlighter)contentsArea.getHighlighter();
-    	java.awt.Color realColor = null;
+    	
         
         for (int index = 0; index < lineColor.size(); index++) {
-        	if (lineColor.get(index).getColor() == LineColor.LINE_PLUS.getColor()) {
-        		realColor = java.awt.Color.RED;
-        	}
-        	else {
-        		realColor = java.awt.Color.WHITE;
-        	}
+        	Color realColor = getColor(lineColor.get(index));
         	DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter( realColor );
             highlighter.setDrawsLayeredHighlights(false); // this is the key line
         	try {
