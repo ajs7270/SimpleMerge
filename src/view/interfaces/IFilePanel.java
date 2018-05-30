@@ -1,6 +1,7 @@
 package view.interfaces;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import view.LineColor;
 
@@ -16,6 +17,7 @@ public interface IFilePanel {
 	public void setText(String text);
 	public boolean getTextEditable();
 	public void setTextEditable(boolean editable);
+	public List<Integer> getDraggedLine();
 	
 	public void initLineColor();
 	

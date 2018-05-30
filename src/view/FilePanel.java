@@ -137,6 +137,12 @@ public class FilePanel extends JPanel implements IFilePanel{
 	}
 	
 	@Override
+	public List<Integer> getDraggedLine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public void initLineColor() {
 		if (lineColor != null) lineColor.clear();
 		lineColor = new ArrayList<>();
@@ -206,7 +212,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 	public void setSaveAction(ActionListener action) {
 		btnSave.addActionListener(action);
 	}
-	
+
 	
 	
 	
