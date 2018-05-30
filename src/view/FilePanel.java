@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -48,7 +49,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnSave = new JButton("S");
 		btnEdit = new JButton("E");
 		fileNameLabel = new JLabel("File Path : ");
-		contentsArea = new JTextArea("test\ntest");
+		contentsArea = new JTextArea("test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest");
 		scrollArea = new JScrollPane(contentsArea);
 	}
 	
@@ -87,8 +88,8 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnLoad.addActionListener((actionEvent)->{
 			System.out.println("load event call");
 		});
-		//contentsArea.setDragEnabled(true);
-		//contentsArea.setEditable(false);
+		contentsArea.setEditable(false);
+		contentsArea.setDragEnabled(true);
 	}
 	
 	
@@ -138,7 +139,9 @@ public class FilePanel extends JPanel implements IFilePanel{
 	
 	@Override
 	public List<Integer> getDraggedLine() {
-		// TODO Auto-generated method stub
+		List<Integer> draggedLines = new LinkedList<>();
+		
+		
 		return null;
 	}
 	

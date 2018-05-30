@@ -17,7 +17,6 @@ public interface IMainFrame {
 	public void setFilePanelLineColor(int idFilePanel, int lineNo, int lineColor);
 	public void paintFilePanelLineColor(int idFilePanel);
 	
-	
 	public void setFilePanelAction(int idFilePanel, ActionListener loadEvent, ActionListener editEvent, ActionListener saveEvent);
 
 }
