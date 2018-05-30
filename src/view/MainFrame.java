@@ -157,4 +157,12 @@ public class MainFrame extends JFrame implements IMainFrame{
 		leftPanel.addContentsAreaMouseAction(action);
 		rightPanel.addContentsAreaMouseAction(action);		
 	}
+
+	@Override
+	public void setBtnAction(ActionListener mergeToLeftEvent, ActionListener cmpEvent,
+			ActionListener mergeToRightEvent) {
+		btnMergeToLeft.addActionListener(mergeToLeftEvent);
+		btnCmp.addActionListener(cmpEvent);
+		btnMergeToRight.addActionListener(mergeToRightEvent);
+	}
 }

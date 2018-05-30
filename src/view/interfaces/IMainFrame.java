@@ -20,5 +20,6 @@ public interface IMainFrame {
 	
 	public void setFilePanelAction(int idFilePanel, ActionListener loadEvent, ActionListener editEvent, ActionListener saveEvent);
 	public void setFilePanelContentsMouseAction(MouseListener action);
+	public void setBtnAction(ActionListener mergeToLeftEvent, ActionListener cmpEvent, ActionListener mergeToRightEvent);
 
 }
