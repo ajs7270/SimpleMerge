@@ -92,6 +92,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnLoad.addActionListener((actionEvent)->{
 			System.out.println("load event call");
 		});
+		contentsArea.setSelectionColor(new Color(255,223, 186, 180));
 	}
 	
 	private Color getColor(LineColor color){
