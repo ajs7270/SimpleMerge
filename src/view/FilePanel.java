@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
 import view.interfaces.IFilePanel;
@@ -140,9 +141,20 @@ public class FilePanel extends JPanel implements IFilePanel{
 	@Override
 	public List<Integer> getDraggedLine() {
 		List<Integer> draggedLines = new LinkedList<>();
+		int startPos = contentsArea.getSelectionStart();
+		int endPos = contentsArea.getSelectionEnd();
+		try {
+			int startLine = contentsArea.getLineOfOffset(startPos);
+			int endLine = contentsArea.getLineOfOffset(endPos);
+			for (int index = startLine; index <= endLine; index++) {
+				draggedLines.add(index);
+			}
+			return draggedLines;
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+			return null;
+		}
 		
-		
-		return null;
 	}
 	
 	@Override
