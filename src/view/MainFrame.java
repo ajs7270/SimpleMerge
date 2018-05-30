@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -149,5 +150,11 @@ public class MainFrame extends JFrame implements IMainFrame{
 		filePanel.setEditAction(editEvent);
 		filePanel.setSaveAction(saveEvent);
 		
+	}
+
+	@Override
+	public void setFilePanelContentsMouseAction(MouseListener action) {
+		leftPanel.addContentsAreaMouseAction(action);
+		rightPanel.addContentsAreaMouseAction(action);		
 	}
 }

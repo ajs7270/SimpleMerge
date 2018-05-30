@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -173,6 +174,11 @@ public class FilePanel extends JPanel implements IFilePanel{
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public void addContentsAreaMouseAction(MouseListener action) {
+		contentsArea.addMouseListener(action);
 	}
 	
 	@Override

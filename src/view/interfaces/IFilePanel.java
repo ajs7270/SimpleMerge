@@ -1,6 +1,7 @@
 package view.interfaces;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import view.LineColor;
@@ -18,6 +19,7 @@ public interface IFilePanel {
 	public boolean getTextEditable();
 	public void setTextEditable(boolean editable);
 	public List<Integer> getDraggedLine();
+	public void addContentsAreaMouseAction(MouseListener action);
 	
 	public void initLineColor();
 	
