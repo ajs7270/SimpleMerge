@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -140,6 +141,13 @@ public class MainFrame extends JFrame implements IMainFrame{
 		filePanel.paintLineColor();
 		
 	}
+	
+	@Override
+	public List<Integer> getFilePanelDraggeedLine(int idFilePanel) {
+		FilePanel filePanel = getFilePanelById(idFilePanel);
+		if (filePanel == null) return null;
+		return filePanel.getDraggedLine();
+	}
 
 	@Override
 	public void setFilePanelAction(int idFilePanel, ActionListener loadEvent, ActionListener editEvent,
@@ -165,4 +173,6 @@ public class MainFrame extends JFrame implements IMainFrame{
 		btnCmp.addActionListener(cmpEvent);
 		btnMergeToRight.addActionListener(mergeToRightEvent);
 	}
+
+	
 }

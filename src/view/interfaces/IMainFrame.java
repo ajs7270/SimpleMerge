@@ -2,6 +2,7 @@ package view.interfaces;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 public interface IMainFrame {
 
@@ -17,6 +18,8 @@ public interface IMainFrame {
 	public int getFilePanelLineColor(int idFilePanel, int lineNo);
 	public void setFilePanelLineColor(int idFilePanel, int lineNo, int lineColor);
 	public void paintFilePanelLineColor(int idFilePanel);
+
+	public List<Integer> getFilePanelDraggeedLine(int idFilePanel);
 	
 	public void setFilePanelAction(int idFilePanel, ActionListener loadEvent, ActionListener editEvent, ActionListener saveEvent);
 	public void setFilePanelContentsMouseAction(MouseListener action);
