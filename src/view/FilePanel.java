@@ -37,12 +37,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		initComponents();
 		arrangeComponents();
 		settingComponents();
-		
-		lineColor.add(LineColor.LINE_BLANK);
-		lineColor.add(LineColor.LINE_PLUS);
-		lineColor.add(LineColor.LINE_MINUS);
-		lineColor.add(LineColor.LINE_DIFF);
-		paintLineColor();
+		testSetting();
 	}
 	
 	// ###################################################
@@ -54,7 +49,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnSave = new JButton("S");
 		btnEdit = new JButton("E");
 		fileNameLabel = new JLabel("File Path : ");
-		contentsArea = new JTextArea("blank\nadded\nremoved\ndifference\ntest\ntest\ntest\ntest\ntest");
+		contentsArea = new JTextArea();
 		scrollArea = new JScrollPane(contentsArea);
 	}
 	
@@ -94,6 +89,15 @@ public class FilePanel extends JPanel implements IFilePanel{
 			System.out.println("load event call");
 		});
 		contentsArea.setSelectionColor(new Color(255,223, 186, 180));
+	}
+	
+	private void testSetting() {
+		lineColor.add(LineColor.LINE_BLANK);
+		lineColor.add(LineColor.LINE_PLUS);
+		lineColor.add(LineColor.LINE_MINUS);
+		lineColor.add(LineColor.LINE_DIFF);
+		this.setText("blank\nadded\nremoved\ndifference\ntest\ntest\ntest\ntest\ntest");
+		paintLineColor();
 	}
 	
 	private Color getColor(LineColor color){
