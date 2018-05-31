@@ -1,11 +1,69 @@
 package control;
 
-public class ViewController {
+import control.interfaces.IViewController;
+import view.MainFrame;
+import view.interfaces.IMainFrame;
 
+public class ViewController implements IViewController{
+
+	private MainFrame mainFrame;
+	
 	public ViewController() {
+		initComponents();
+		addBtnActionListener();
+	}
+	
+	// ###################################################
+	// PART: inner function part 
+	// ###################################################
+	
+	private void initComponents() {
+		mainFrame = new MainFrame(); // init complete
 		
 	}
 	
+	private void addBtnActionListener() {
+		mainFrame.setBtnAction(
+				(mergeToLeftAction)->{
+					System.out.println("left!");
+				}, 
+				(cmpAction)->{
+					System.out.println("cmp!");
+				},
+				(mergeToRightAction)->{
+					System.out.println("right");
+				});
+		
+		mainFrame.setFilePanelAction(MainFrame.PANEL_LEFT, 
+				(loadEvent)->{
+					
+				}, 
+				(editEvent)->{
+					
+				},
+				(saveEvent)->{
+					
+				});
+		
+		mainFrame.setFilePanelAction(MainFrame.PANEL_RIGHT, 
+				(loadEvent)->{
+					
+				}, 
+				(editEvent)->{
+					
+				},
+				(saveEvent)->{
+					
+				});
+	}
 	
+	// ###################################################
+	// PART: Interface part 
+	// ###################################################
+	
+	@Override
+	public IMainFrame getMainFrameInterface() {
+		return mainFrame;
+	}
 	
 }
