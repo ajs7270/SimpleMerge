@@ -5,49 +5,50 @@ import java.util.ListIterator;
 public class Merge {
 
 
-	List<Integer> sourceLineList = new LinkedList<Integer>();
-	List<String> left_file = new LinkedList<String>();
-	List<String> right_file = new LinkedList<String>();
+	List<Integer> selectedLineList = new LinkedList<Integer>();         // The lineList that user wants to copy
+	List<String> left_file = new LinkedList<String>();                  // left file
+	List<String> right_file = new LinkedList<String>();                 // right file
 	
-	Merge(List<Integer> sourceLine, File left, File right){
+	//constructor
+	Merge(List<Integer> input_selectedLineList, File left, File right){
 		
-		sourceLineList = sourceLine;
-		left_file = left.getData();
-		right_file = right.getData();	
+		selectedLineList = input_selectedLineList;
+		left_file = left.getData();                                 // get left file contents
+		right_file = right.getData();								// get right file contents
 		
 	}
 	
-	
-	// compare 했었는지 확인
+	// Check whether it is compared
 	public boolean isMerged(){
 		
 		return true;
 		
 	}
 	
-	// 버튼 눌렀을 때  -> edit 모드 활성화 하고 꺼야댐
+	// Merge button clicked -> Turn on edit_mode !!!!!!! 
 	
-	public void MergeToLeft(){           // 왼쪽으로 합치는 method
+	public void MergeToLeft(){           // Copy to Left Method
 		
-		if(isMerged())                   // Merge가 가능하다면
+		if(isMerged())                   // If "Merge" is possible
 		{
-			//System.out.println("Merge To Left button clicked");
+			
+			/* System.out.println("Merge To Left button clicked"); */
 			
 			// Integer iteration
-			ListIterator<Integer> it = sourceLineList.listIterator();
+			ListIterator<Integer> it = selectedLineList.listIterator();
 			int index = 0;
 			
-			// 선택된 부분의 처음부터 끝까지 반복문
+			// Repeat the selected lines from beginning to end
+			
 			while(it.hasNext()){
 				
 				index = it.nextIndex();
-				System.out.println(index);
 								
-				if(left_file.get(index) == right_file.get(index))      // 동일한 line이 있는 경우
+				if(left_file.get(index) == right_file.get(index))    // If exist some same line
 				{
-					System.out.println("선택한 줄은 내용이 동일합니다.");
+					 System.out.println("The selected lines have the same contents."); 
 				}
-				else
+				else                                                 // else
 				{
 					left_file.remove(index);
 					left_file.add(index, right_file.get(index));
@@ -60,27 +61,29 @@ public class Merge {
 		
 	}
 	
-	public void MergeToRight(){           // 오른쪽으로 합치는 method
+	public void MergeToRight(){           // Copy to Right Method
 		
-		if(isMerged())                   // Merge가 가능하다면
+		if(isMerged())                   // If "Merge" is possible
 		{
-			//System.out.println("Merge To Left button clicked");
+			
+			/* System.out.println("Merge To Left button clicked"); */
 			
 			// Integer iteration
-			ListIterator<Integer> it = sourceLineList.listIterator();
+			ListIterator<Integer> it = selectedLineList.listIterator();
 			int index = 0;
 			
-			// 선택된 부분의 처음부터 끝까지 반복문
+			// Repeat the selected lines from beginning to end
+			
 			while(it.hasNext()){
 				
 				index = it.nextIndex();
 				System.out.println(index);
 								
-				if(right_file.get(index) == left_file.get(index))      // 동일한 line이 있는 경우
+				if(right_file.get(index) == left_file.get(index))      // If exist some same line
 				{
-					System.out.println("선택한 줄은 내용이 동일합니다.");
+					System.out.println("The selected lines have the same contents."); 
 				}
-				else
+				else												  // else
 				{
 					right_file.remove(index);
 					right_file.add(index, left_file.get(index));
@@ -91,5 +94,5 @@ public class Merge {
 
 
 		}
- }
+    }
 }
