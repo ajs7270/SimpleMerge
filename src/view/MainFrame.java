@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,9 +18,12 @@ public class MainFrame extends JFrame implements IMainFrame{
 
 	private static final long serialVersionUID = 1L;
 	public static final int PANEL_LEFT = 0, PANEL_RIGHT=1;
+	private static final String PATH_COMPARE = "res/icon/balance.png";
+	private static final String PATH_LEFT = "res/icon/toLeft.png";
+	private static final String PATH_RIGHT = "res/icon/toRight.png";
 	
 	private FilePanel leftPanel, rightPanel;
-	private JButton btnCmp, btnMergeToLeft, btnMergeToRight;
+	private BtnImage btnCmp, btnMergeToLeft, btnMergeToRight;
 	public MainFrame() {
 		initComponents();
 		arrangeComponents();
@@ -33,13 +37,22 @@ public class MainFrame extends JFrame implements IMainFrame{
 		leftPanel = new FilePanel(PANEL_LEFT);
 		rightPanel = new FilePanel(PANEL_RIGHT);
 		
-		btnCmp = new JButton("Compare");
-		btnMergeToLeft = new JButton("Merge To Left");
-		btnMergeToRight = new JButton("Merge To Right");
+		btnCmp = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_COMPARE)), "Compare");
+		btnMergeToLeft = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LEFT)), "Copy To Left");
+		btnMergeToRight = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_RIGHT)), "Copy To Right");
 	}
 	
 	private void arrangeComponents() {
-			
+		
+		int iconSize = 64;
+		btnCmp.setImageSize(iconSize, iconSize);
+		btnMergeToLeft.setImageSize(iconSize, iconSize);
+		btnMergeToRight.setImageSize(iconSize, iconSize);
+		
+		btnCmp.setBorder(false);
+		btnMergeToLeft.setBorder(false);
+		btnMergeToRight.setBorder(false);
+		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(0, 2));
 		centerPanel.add(leftPanel);
@@ -56,7 +69,7 @@ public class MainFrame extends JFrame implements IMainFrame{
 		this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(400, 400);
+		this.setSize(1200, 960);
 		this.setVisible(true);
 	}
 	

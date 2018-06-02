@@ -25,7 +25,7 @@ public class BtnImage extends JButton{
 		paddingLeft   = 5,
 		paddingRight  = 5,
 		paddingBottom = 5,
-		paddingText   = 12;
+		paddingText   = 18;
 	
 	public BtnImage(ImageIcon icon) {
 		this.icon = icon;
@@ -74,8 +74,6 @@ public class BtnImage extends JButton{
 		// save data
 		iconWidth = width;
 		iconHeight = height;
-
-		size = new Dimension(width + paddingLeft + paddingRight, (desc != null) ? height + paddingTop + paddingBottom + 10 + paddingText : height + paddingTop + paddingBottom);
 	}
 	
 	public boolean isBorder() {
@@ -88,26 +86,44 @@ public class BtnImage extends JButton{
 	
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		//super.paint(g);
-		g.clearRect(0, 0, (int)size.getWidth(), (int)size.getHeight());
-		g.drawImage(icon.getImage(), paddingLeft, paddingTop, null);
 		
+		// size calculator
 		g.setColor(Color.BLACK);
-		if (isBorder) g.drawRect(0, 0, this.getWidth()-2, this.getHeight()-2);
-		if (desc != null) {
-			int textWidth = g.getFontMetrics().stringWidth(desc);
-			g.drawString(desc, iconWidth/2 - textWidth/2, iconHeight + paddingTop + paddingText);
+		int textWidth = (desc != null) ? g.getFontMetrics().stringWidth(desc) : 0 ;
+		
+		if (textWidth > iconWidth) { // if text is more longer
+			size = new Dimension(textWidth + paddingLeft + paddingRight, iconHeight + paddingTop + paddingBottom + paddingText+ 20);
 		}
+		else {
+			size = new Dimension(iconWidth + paddingLeft + paddingRight, iconHeight + paddingTop + paddingBottom + ((desc!=null) ? paddingText+ 20 : 0));
+		}
+		g.clearRect(0, 0, (int)size.getWidth(), (int)size.getHeight());
+		
+		this.setPreferredSize(size);
+		this.setMaximumSize(size);
+		this.setMinimumSize(size);
+		
+		// draw image
+		g.drawImage(icon.getImage(), this.getWidth()/2 - iconWidth/2, paddingTop, null);
+		
+		// draw text
+		if (desc != null) {
+			g.setColor(Color.BLACK);
+			g.drawString(desc, this.getWidth()/2 - textWidth/2 , paddingTop + iconHeight + paddingText);
+		}
+		
+		// draw border
+		if (isBorder) {
+			g.setColor(Color.BLACK);
+			g.drawRect(0, 0, this.getWidth()-2, this.getHeight()-2);
+		}
+		
 		
 		if (isMouseEntered) {
 			g.setColor(new Color(100,100,100, 100));
 			g.fillRect(0, 0, (int)size.getWidth(), (int)size.getHeight());
 		}
 		
-		this.setSize(size);
-		this.setPreferredSize(size);
-		this.setMaximumSize(size);
-		this.setMinimumSize(size);
+		
 	}
 }

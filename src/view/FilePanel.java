@@ -3,14 +3,13 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,9 +22,12 @@ import view.interfaces.IFilePanel;
 public class FilePanel extends JPanel implements IFilePanel{
 
 	private static final long serialVersionUID = 1L;
+	private static final String PATH_LOAD = "res/icon/folder.png";
+	private static final String PATH_EDIT = "res/icon/pencil.png";
+	private static final String PATH_SAVE = "res/icon/diskette.png";
 	
 	private int panelId = -1;
-	private JButton btnLoad, btnSave, btnEdit;
+	private BtnImage btnLoad, btnSave, btnEdit;
 	private JLabel fileNameLabel;
 	private JTextArea contentsArea;
 	private JScrollPane scrollArea;
@@ -45,15 +47,24 @@ public class FilePanel extends JPanel implements IFilePanel{
 	// ###################################################
 	
 	private void initComponents() {
-		btnLoad = new JButton("L");
-		btnSave = new JButton("S");
-		btnEdit = new JButton("E");
-		fileNameLabel = new JLabel("File Path : ");
+		btnLoad = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LOAD)));
+		btnSave = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
+		btnEdit = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+		fileNameLabel = new JLabel("C://Mingyou/test.txt");
 		contentsArea = new JTextArea();
 		scrollArea = new JScrollPane(contentsArea);
 	}
 	
 	private void arrangeComponents() {
+		
+		int iconSize = 16;
+		btnLoad.setImageSize(iconSize, iconSize);
+		btnLoad.setBorder(false);
+		btnSave.setImageSize(iconSize, iconSize);
+		btnSave.setBorder(false);
+		btnEdit.setImageSize(iconSize, iconSize);
+		btnEdit.setBorder(false);
+		
 		JPanel topTopPanel = new JPanel();
 		topTopPanel.setLayout(new FlowLayout());
 		topTopPanel.add(btnLoad);
@@ -65,9 +76,9 @@ public class FilePanel extends JPanel implements IFilePanel{
 		topBottomPanel.add(fileNameLabel);
 		
 		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new GridLayout(2, 1));
-		topPanel.add(topTopPanel);
-		topPanel.add(topBottomPanel);
+		topPanel.setLayout(new BorderLayout());
+		topPanel.add(topTopPanel, BorderLayout.EAST);
+		topPanel.add(topBottomPanel, BorderLayout.WEST);
 		
 		this.setLayout(new BorderLayout());
 		this.add(topPanel, BorderLayout.NORTH);
