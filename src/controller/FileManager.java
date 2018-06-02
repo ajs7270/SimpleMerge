@@ -1,8 +1,16 @@
+import java.util.LinkedList;
+import java.util.List;
 
 public class FileManager {
 	
 	// create temporary file object
-	File file = new File();
+	List<Integer> selectedLineList = new LinkedList<Integer>();
+	List<String> leftfile_contents = new LinkedList<String>();                  // left file contents
+	List<String> rightfile_contents = new LinkedList<String>();                 // right file contents
+	File left_file = new File();
+	File right_file = new File();
+	Merge merge = new Merge(selectedLineList, left_file, right_file);
+	Compare compare = new Compare(leftfile_contents, rightfile_contents);
 	Edit edit_mode = new Edit();   // 0: uneditable
 	
 	//constructor
@@ -10,15 +18,17 @@ public class FileManager {
 		
 	}
 	
-	FileManager(File input_file){
-		file = input_file;
+	// Load file
+	public void leftfile_Load(File input_file){       // input_file -> left file
+		
+		left_file = input_file;
+		left_file.load();
 	}
 	
-	// Load file
-	public void Load(File input_file){       // input_file -> left file or right file
+	public void rightfile_Load(File input_file){       // input_file -> right file
 		
-		file = input_file;
-		file.load();
+		right_file = input_file;
+		right_file.load();
 	}
 	
 	// Turn on Edit mode
@@ -35,11 +45,57 @@ public class FileManager {
 		                                  // 0: uneditable
 	}
 	
+	// Merge
+	public void MergeToLeft(){
+		
+		if(compare.isCompared())                                // Merge is available
+		{
+			this.on_Editmode();                                 // turn on edit mode
+			merge.setFiles(selectedLineList, left_file, right_file);
+			merge.MergeToLeft();
+			this.off_Editmode();                                // turn off edit mode
+		}
+		else                                                    // Merge is not available
+		{
+			System.out.println("Merge is not available");
+		}
+		
+	}
+	
+	public void MergeToRight(){
+		
+		if(compare.isCompared())                                // Merge is available
+		{
+			this.on_Editmode();                                 // turn on edit mode
+			merge.setFiles(selectedLineList, left_file, right_file);
+			merge.MergeToRight();
+			this.off_Editmode();                                // turn off edit mode
+		}
+		else                                                    // Merge is not available
+		{
+			System.out.println("Merge is not available");
+		}
+		
+	}
+	
+	// Compare
+	public void Compare(){
+		compare.setFiles(leftfile_contents, rightfile_contents);
+	}
+	
+	
 	// Save file
-	public void Save(File input_file){
+	public void leftfile_Save(File input_file){
 
-		file = input_file;
-		file.save();
+		left_file = input_file;
+		left_file.save();
+	
+	}
+	
+	public void rightfile_Save(File input_file){
+
+		right_file = input_file;
+		right_file.save();
 	
 	}
 
