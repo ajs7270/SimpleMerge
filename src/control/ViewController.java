@@ -25,13 +25,10 @@ public class ViewController implements IViewController{
 	private void addBtnActionListener() {
 		mainFrame.setBtnAction(
 				(mergeToLeftAction)->{
-					System.out.println("left!");
 				}, 
 				(cmpAction)->{
-					System.out.println("cmp!");
 				},
 				(mergeToRightAction)->{
-					System.out.println("right");
 				});
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_LEFT, 

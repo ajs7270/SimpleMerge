@@ -39,7 +39,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		initComponents();
 		arrangeComponents();
 		settingComponents();
-		testSetting();
+		//testSetting();
 	}
 	
 	// ###################################################
@@ -50,7 +50,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnLoad = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LOAD)));
 		btnSave = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
 		btnEdit = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
-		fileNameLabel = new JLabel("C://Mingyou/test.txt");
+		fileNameLabel = new JLabel();
 		contentsArea = new JTextArea();
 		scrollArea = new JScrollPane(contentsArea);
 	}
@@ -90,18 +90,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 	 * adding button listener, 
 	 */
 	private void settingComponents() {
-		btnEdit.addActionListener((actionEvent)->{
-			System.out.println("edit event call");
-		});
-		btnSave.addActionListener((actionEvent)->{
-			System.out.println("save event call");
-		});
-		btnLoad.addActionListener((actionEvent)->{
-			System.out.println("load event call");
-		});
 		contentsArea.setSelectionColor(new Color(255,223, 186, 180));
 	}
 	
+	@SuppressWarnings("unused")
 	private void testSetting() {
 		lineColor.add(LineColor.LINE_BLANK);
 		lineColor.add(LineColor.LINE_PLUS);
