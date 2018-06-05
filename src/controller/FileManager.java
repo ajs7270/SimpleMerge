@@ -9,8 +9,8 @@ public class FileManager {
 	List<String> rightfile_contents = new LinkedList<String>();                 // right file contents
 	File left_file = new File();
 	File right_file = new File();
-	Merge merge = new Merge(selectedLineList, left_file, right_file);
-	Compare compare = new Compare(leftfile_contents, rightfile_contents);
+	Merge merge = new Merge();
+	compare compare = new compare(leftfile_contents, rightfile_contents);
 	Edit edit_mode = new Edit();   // 0: uneditable
 	
 	//constructor
@@ -51,7 +51,7 @@ public class FileManager {
 		if(compare.isCompared())                                // Merge is available
 		{
 			this.on_Editmode();                                 // turn on edit mode
-			merge.setFiles(selectedLineList, left_file, right_file);
+			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
 			merge.MergeToLeft();
 			this.off_Editmode();                                // turn off edit mode
 		}
@@ -67,7 +67,7 @@ public class FileManager {
 		if(compare.isCompared())                                // Merge is available
 		{
 			this.on_Editmode();                                 // turn on edit mode
-			merge.setFiles(selectedLineList, left_file, right_file);
+			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
 			merge.MergeToRight();
 			this.off_Editmode();                                // turn off edit mode
 		}
@@ -81,6 +81,7 @@ public class FileManager {
 	// Compare
 	public void Compare(){
 		compare.setFiles(leftfile_contents, rightfile_contents);
+		compare.lcs();
 	}
 	
 	
