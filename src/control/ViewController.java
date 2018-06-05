@@ -10,6 +10,7 @@ public class ViewController implements IViewController{
 	private MainFrame mainFrame;
 	private File leftFile;
 	private File rightFile;
+	private FileManager filemanager;
 	
 	public ViewController() {
 		initComponents();
@@ -24,38 +25,42 @@ public class ViewController implements IViewController{
 		mainFrame = new MainFrame(); // init complete
 		leftFile = new File();
 		rightFile = new File();
+		filemanager = new FileManager();
 		
 	}
 	
 	private void addBtnActionListener() {
 		mainFrame.setBtnAction(
 				(mergeToLeftAction)->{
+					filemanager.MergeToLeft();
 				}, 
 				(cmpAction)->{
+					filemanager.Compare();
 				},
 				(mergeToRightAction)->{
+					filemanager.MergeToRight();
 				});
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_LEFT, 
 				(loadEvent)->{
-					leftFile.load();
+					filemanager.leftfile_Load(leftFile);
 				}, 
 				(editEvent)->{
 					
 				},
 				(saveEvent)->{
-					leftFile.save();
+					filemanager.leftfile_Save(leftFile);
 				});
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_RIGHT, 
 				(loadEvent)->{
-					rightFile.load();
+					filemanager.rightfile_Load(rightFile);         // 이거 실행이 안됩니다..
 				}, 
 				(editEvent)->{
 					
 				},
 				(saveEvent)->{
-					rightFile.save();
+					filemanager.rightfile_Save(rightFile);
 				});
 	}
 	

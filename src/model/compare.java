@@ -1,3 +1,5 @@
+package model;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +68,7 @@ public class compare {
 	}
 	
 	public void lcs() {
+		isCompared = true;
 		lcs_table = new int[dataL.size()+1][dataR.size()+1];
 		int Llen = dataL.size();
 		int Rlen = dataR.size();
