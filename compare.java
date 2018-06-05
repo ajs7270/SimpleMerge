@@ -18,23 +18,24 @@ public class compare {
 	int[][] lcs_table;
 	boolean isCompared;
 	
-	List<String> dataL;                  	// left data
-	List<String> dataR;                 	// right data
-	List<Status> statusL;                  	// left data status
-	List<Status> statusR;                 	// right data status
+	List<String> dataL = new LinkedList<String>();                  // left data
+	List<String> dataR = new LinkedList<String>();                 	// right data
+	List<Status> statusL;                  							// left data status
+	List<Status> statusR;                 							// right data status
 	List<Point> lcsList;
 	
-	public compare(LinkedList<String> L, LinkedList<String> R) {
-		dataL = L;                  // left data
-		dataR = R;                 // right data
+	public compare() {
 		statusL = new LinkedList<Status>();
 		statusR = new LinkedList<Status>();
 		lcsList = new LinkedList<Point>();
-		
-		lcs();
-		isCompared = true;
+		isCompared = false;
 	}
 
+	public void setFiles(List<String> L, List<String> R) {
+		dataL = L;                  // left data
+		dataR = R;                 	// right data
+	}
+	
 	public void initStatus(Status L, Status R, int index){
 		statusL.add(index, L);
 		statusR.add(index, R);
@@ -59,7 +60,7 @@ public class compare {
 		return isCompared;
 	}
 
-	// 공통부분 길이
+	// 怨듯넻遺�遺� 湲몄씠
 	public int LCS_length(int dataIndex) {
 		return lcs_table[dataL.get(dataIndex).length()][dataR.get(dataIndex).length()];
 	}
@@ -69,14 +70,14 @@ public class compare {
 		int Llen = dataL.size();
 		int Rlen = dataR.size();
 		
-		/* LCS 테이블 생성 */
-		// 처음 라인 0 초기화
+		/* LCS �뀒�씠釉� �깮�꽦 */
+		// 泥섏쓬 �씪�씤 0 珥덇린�솕
 		for (int i = 0; i < Llen+1; i++) {
 			for (int j = 0; j < Rlen+1; j++) {
 				lcs_table[i][j]=0;
 			}
 		}
-		// if 같으면 그때까지 공통부분+1 / else 다르면 둘 중에서 긴 공통부분 가져옴
+		// if 媛숈쑝硫� 洹몃븣源뚯� 怨듯넻遺�遺�+1 / else �떎瑜대㈃ �몮 以묒뿉�꽌 湲� 怨듯넻遺�遺� 媛��졇�샂
 		for (int i = 1; i < Llen+1; i++) {
 			for (int j = 1; j < Rlen+1; j++) {
 				if(dataL.get(i-1).equals(dataR.get(j-1))) {
@@ -95,13 +96,13 @@ public class compare {
 			}
 		}
 		
-		// status를 길이만큼 모두 equal로 세팅
+		// status瑜� 湲몄씠留뚰겮 紐⑤몢 equal濡� �꽭�똿
 		int dataMaxLen = Math.max(dataL.size(), dataR.size());
 		for(int i=0; i<dataMaxLen; i++) {
 			initStatus(Status.EQUAL, Status.EQUAL, i);
 		}
 		
-		// 라인 단위 추가나 삭제된 부분 추가
+		// �씪�씤 �떒�쐞 異붽��굹 �궘�젣�맂 遺�遺� 異붽�
 		int Ladd = 0;
 		int Radd = 0;
 		for(int i=0; i<lcsList.size()-1; i++) {
@@ -126,14 +127,14 @@ public class compare {
 			}
 		}
 		
-		// 두 문서의 길이가 다르면 차이만큼 뒤에 공백라인 추가
+		// �몢 臾몄꽌�쓽 湲몄씠媛� �떎瑜대㈃ 李⑥씠留뚰겮 �뮘�뿉 怨듬갚�씪�씤 異붽�
 		int gap = dataL.size() - dataR.size();
-		if(gap>0) {	// 왼쪽이 더 길면 오른쪽 추가
+		if(gap>0) {	// �쇊履쎌씠 �뜑 湲몃㈃ �삤瑜몄そ 異붽�
 			for(int i=0; i<gap; i++) {
 				dataR.add("");
 				initStatus(Status.ADD, Status.DELETE, statusL.size());
 			}
-		}else if(gap<0) {	// 오른쪽이 더 길면 왼쪽 추가
+		}else if(gap<0) {	// �삤瑜몄そ�씠 �뜑 湲몃㈃ �쇊履� 異붽�
 			for(int i=0; i>gap; i--) {
 				dataL.add("");
 				initStatus(Status.DELETE, Status.ADD, statusL.size());
