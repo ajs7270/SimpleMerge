@@ -9,21 +9,23 @@ public class Merge {
 	List<String> left_file = new LinkedList<String>();                  // left file
 	List<String> right_file = new LinkedList<String>();                 // right file
 	
+	Merge() {}
+	
 	//constructor
-	Merge(List<Integer> input_selectedLineList, File left, File right){
+	Merge(List<Integer> input_selectedLineList, List<String> left_filecontents , List<String> right_filecontents){
 		
 		selectedLineList = input_selectedLineList;
-		left_file = left.getData();                                 // get left file contents
-		right_file = right.getData();								// get right file contents
+		left_file = left_filecontents;                                 // get left file contents
+		right_file = right_filecontents;								// get right file contents
 		
 	}
 	
 	// set files
-	public void setFiles(List<Integer> input_selectedLineList, File left, File right){
+	public void setFiles(List<Integer> input_selectedLineList, List<String> left_filecontents , List<String> right_filecontents){
 		
 		selectedLineList = input_selectedLineList;
-		left_file = left.getData();                                 // get left file contents
-		right_file = right.getData();								// get right file contents
+		left_file = left_filecontents;                                 // get left file contents
+		right_file = right_filecontents;								// get right file contents
 	
 	}
 	
@@ -38,12 +40,13 @@ public class Merge {
 		int index = 0;
 		
 		// Repeat the selected lines from beginning to end
-		
+
 		while(it.hasNext()){
 			
-			index = it.nextIndex();
+			
+			index = it.next();
 							
-			if(left_file.get(index) == right_file.get(index))    // If exist some same line
+			if(left_file.get(index).equals(right_file.get(index)))    // If exist some same line
 			{
 				 System.out.println("The selected lines have the same contents."); 
 			}
@@ -52,8 +55,7 @@ public class Merge {
 				left_file.remove(index);
 				left_file.add(index, right_file.get(index));
 			}
-			
-			it.next();
+	
 		}	
 		
 	}
@@ -69,11 +71,10 @@ public class Merge {
 		// Repeat the selected lines from beginning to end
 		
 		while(it.hasNext()){
-			
-			index = it.nextIndex();
-			System.out.println(index);
+
+			index = it.next();
 							
-			if(right_file.get(index) == left_file.get(index))      // If exist some same line
+			if(right_file.get(index).equals(left_file.get(index)))      // If exist some same line
 			{
 				System.out.println("The selected lines have the same contents."); 
 			}
@@ -83,7 +84,6 @@ public class Merge {
 				right_file.add(index, left_file.get(index));
 			}
 			
-			it.next();
 		}	
 
     }
