@@ -1,5 +1,9 @@
+package control;
 import java.util.LinkedList;
 import java.util.List;
+
+import model.File;
+import model.Merge;
 
 public class FileManager {
 	
@@ -10,8 +14,8 @@ public class FileManager {
 	File left_file = new File();
 	File right_file = new File();
 	Merge merge = new Merge();
-	compare compare = new compare(leftfile_contents, rightfile_contents);
-	Edit edit_mode = new Edit();   // 0: uneditable
+	//compare compare = new compare(leftfile_contents, rightfile_contents);
+	//Edit edit_mode = new Edit();   // 0: uneditable
 	
 	//constructor
 	FileManager(){
@@ -34,21 +38,22 @@ public class FileManager {
 	// Turn on Edit mode
 	public void on_Editmode(){
 		
-		edit_mode.changeEditMode();       // edit mode change 0 -> 1 
+		//edit_mode.changeEditMode();       // edit mode change 0 -> 1 
 		                                  // 1: editable
 	}
 	
 	// Turn off Edit mode
 	public void off_Editmode(){
 		
-		edit_mode.changeEditMode();		  // edit mode change 1 -> 0 
+		//edit_mode.changeEditMode();		  // edit mode change 1 -> 0 
 		                                  // 0: uneditable
 	}
 	
 	// Merge
 	public void MergeToLeft(){
 		
-		if(compare.isCompared())                                // Merge is available
+		//if(compare.isCompared())
+		if(true) 				                               	// Merge is available
 		{
 			this.on_Editmode();                                 // turn on edit mode
 			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
@@ -64,7 +69,8 @@ public class FileManager {
 	
 	public void MergeToRight(){
 		
-		if(compare.isCompared())                                // Merge is available
+		//if(compare.isCompared())
+		if(true)                                // Merge is available
 		{
 			this.on_Editmode();                                 // turn on edit mode
 			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
@@ -78,12 +84,13 @@ public class FileManager {
 		
 	}
 	
+	/*
 	// Compare
 	public void Compare(){
 		compare.setFiles(leftfile_contents, rightfile_contents);
 		compare.lcs();
 	}
-	
+	*/
 	
 	// Save file
 	public void leftfile_Save(File input_file){

@@ -10,7 +10,7 @@ public class Merge {
 	List<String> left_file = new LinkedList<String>();                  // left file
 	List<String> right_file = new LinkedList<String>();                 // right file
 	
-	Merge() {}
+	public Merge() {}
 	
 	//constructor
 	Merge(List<Integer> input_selectedLineList, List<String> left_filecontents , List<String> right_filecontents){

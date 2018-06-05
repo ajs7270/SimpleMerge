@@ -1,14 +1,14 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedList;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 class fileTest {
 
-	@Test
+	//@Test
 	void test() {
 		File file = new File();
 		file.load();
