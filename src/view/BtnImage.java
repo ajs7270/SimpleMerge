@@ -74,6 +74,11 @@ public class BtnImage extends JButton{
 		// save data
 		iconWidth = width;
 		iconHeight = height;
+		
+		size = new Dimension(iconWidth + paddingLeft + paddingRight, iconHeight + paddingTop + paddingBottom + paddingText+ 20);
+		this.setPreferredSize(size);
+		this.setMaximumSize(size);
+		this.setMinimumSize(size);
 	}
 	
 	public boolean isBorder() {
@@ -97,7 +102,7 @@ public class BtnImage extends JButton{
 		else {
 			size = new Dimension(iconWidth + paddingLeft + paddingRight, iconHeight + paddingTop + paddingBottom + ((desc!=null) ? paddingText+ 20 : 0));
 		}
-		g.clearRect(0, 0, (int)size.getWidth(), (int)size.getHeight());
+		//g.clearRect(0, 0, (int)size.getWidth(), (int)size.getHeight());
 		
 		this.setPreferredSize(size);
 		this.setMaximumSize(size);

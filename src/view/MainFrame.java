@@ -52,6 +52,10 @@ public class MainFrame extends JFrame implements IMainFrame{
 		btnMergeToLeft.setBorder(false);
 		btnMergeToRight.setBorder(false);
 		
+		btnCmp.setOpaque(false);
+		btnMergeToLeft.setOpaque(false);
+		btnMergeToRight.setOpaque(false);
+		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(0, 2));
 		centerPanel.add(leftPanel);

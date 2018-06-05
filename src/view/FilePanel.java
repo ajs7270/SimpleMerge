@@ -65,6 +65,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 		btnEdit.setImageSize(iconSize, iconSize);
 		btnEdit.setBorder(false);
 		
+		btnLoad.setOpaque(false);
+		btnSave.setOpaque(false);
+		btnEdit.setOpaque(false);
+		
 		JPanel topTopPanel = new JPanel();
 		topTopPanel.setLayout(new FlowLayout());
 		topTopPanel.add(btnLoad);
