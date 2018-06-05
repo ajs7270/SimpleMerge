@@ -2,6 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 enum Status {
     EQUAL, CHANGE, ADD, DELETE
@@ -14,30 +15,18 @@ class Point {
 
 public class compare {
 	
-	
 	int[][] lcs_table;
 	boolean isCompared;
 	
-	LinkedList<String> dataL;                  	// left data
-	LinkedList<String> dataR;                 	// right data
-	LinkedList<String> dataL_cp;                  // left data_copy
-	LinkedList<String> dataR_cp;                 	// right data_copy
-	LinkedList<Status> statusL;                  	// left data status
-	LinkedList<Status> statusR;                 	// right data status
-	LinkedList<Point> lcsList;
+	List<String> dataL;                  	// left data
+	List<String> dataR;                 	// right data
+	List<Status> statusL;                  	// left data status
+	List<Status> statusR;                 	// right data status
+	List<Point> lcsList;
 	
 	public compare(LinkedList<String> L, LinkedList<String> R) {
-	/* 파일 클래스 받아오면 수정
-	public compare(File L, File R) {
-		dataL = L.getData();
-		dataR = R.getData();
-		dataL_cp = L.getData();
-		dataR_cp = R.getData();
-	*/
 		dataL = L;                  // left data
 		dataR = R;                 // right data
-		dataL_cp = L;                  // left data_copy
-		dataR_cp = R;                 // right data_copy
 		statusL = new LinkedList<Status>();
 		statusR = new LinkedList<Status>();
 		lcsList = new LinkedList<Point>();
@@ -56,7 +45,7 @@ public class compare {
 		statusR.set(index, R);
 	}
 	
-	public LinkedList<Status> getStatus(String LR) {
+	public List<Status> getStatus(String LR) {
 		if(LR.equalsIgnoreCase("L")) {
 			return statusL;
 		}else if(LR.equalsIgnoreCase("R")) {
@@ -72,13 +61,13 @@ public class compare {
 
 	// 공통부분 길이
 	public int LCS_length(int dataIndex) {
-		return lcs_table[dataL_cp.get(dataIndex).length()][dataR_cp.get(dataIndex).length()];
+		return lcs_table[dataL.get(dataIndex).length()][dataR.get(dataIndex).length()];
 	}
 	
 	public void lcs() {
-		lcs_table = new int[dataL_cp.size()+1][dataR_cp.size()+1];
-		int Llen = dataL_cp.size();
-		int Rlen = dataR_cp.size();
+		lcs_table = new int[dataL.size()+1][dataR.size()+1];
+		int Llen = dataL.size();
+		int Rlen = dataR.size();
 		
 		/* LCS 테이블 생성 */
 		// 처음 라인 0 초기화
@@ -90,7 +79,7 @@ public class compare {
 		// if 같으면 그때까지 공통부분+1 / else 다르면 둘 중에서 긴 공통부분 가져옴
 		for (int i = 1; i < Llen+1; i++) {
 			for (int j = 1; j < Rlen+1; j++) {
-				if(dataL_cp.get(i-1).equals(dataR_cp.get(j-1))) {
+				if(dataL.get(i-1).equals(dataR.get(j-1))) {
 					lcs_table[i][j] = lcs_table[i-1][j-1]+1;
 					Point p = new Point();
 					p.x = i;
