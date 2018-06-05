@@ -38,10 +38,10 @@ public class ViewController implements IViewController{
 				}, 
 				(editEvent)->{
 					BtnImage btn = (BtnImage) editEvent.getSource();
-					if (btn.getImageIndex() == 0) {
+					if (btn.getImageIndex() == 0) { // edit 모드 시작!
 						btn.setImageIndex(1);
 					}
-					else {
+					else { // 보기만 하는 모드!
 						btn.setImageIndex(0);
 					}
 				},
@@ -55,10 +55,10 @@ public class ViewController implements IViewController{
 				}, 
 				(editEvent)->{
 					BtnImage btn = (BtnImage) editEvent.getSource();
-					if (btn.getImageIndex() == 0) {
+					if (btn.getImageIndex() == 0) { // edit 모드 시작!
 						btn.setImageIndex(1);
 					}
-					else {
+					else { // 보기만 하는 모드!
 						btn.setImageIndex(0);
 					}
 				},
