@@ -1,110 +1,154 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 enum Status {
-    EQUAL, DIFF, ADD, DELETE
+    EQUAL, CHANGE, ADD, DELETE
+}
+
+class Point {
+	int x;
+	int y;
 }
 
 public class compare {
 	
-	private ArrayList<String> dataL;
-	private ArrayList<String> dataR;
-	private int[][] lcs_table;
-	private ArrayList<Status> statusL;
-	private ArrayList<Status> statusR;
-	private boolean isCompared;
 	
-	public compare(ArrayList<String> L, ArrayList<String> R) {
-		this.dataL = L;
-		this.dataR = R;
-		statusL = new ArrayList<Status>();
-		statusR = new ArrayList<Status>();
+	int[][] lcs_table;
+	boolean isCompared;
+	
+	LinkedList<String> dataL;                  	// left data
+	LinkedList<String> dataR;                 	// right data
+	LinkedList<String> dataL_cp;                  // left data_copy
+	LinkedList<String> dataR_cp;                 	// right data_copy
+	LinkedList<Status> statusL;                  	// left data status
+	LinkedList<Status> statusR;                 	// right data status
+	LinkedList<Point> lcsList;
+	
+	public compare(LinkedList<String> L, LinkedList<String> R) {
+	/* 파일 클래스 받아오면 수정
+	public compare(File L, File R) {
+		dataL = L.getData();
+		dataR = R.getData();
+		dataL_cp = L.getData();
+		dataR_cp = R.getData();
+	*/
+		dataL = L;                  // left data
+		dataR = R;                 // right data
+		dataL_cp = L;                  // left data_copy
+		dataR_cp = R;                 // right data_copy
+		statusL = new LinkedList<Status>();
+		statusR = new LinkedList<Status>();
+		lcsList = new LinkedList<Point>();
+		
 		lcs();
-		System.out.println(statusL);
-		System.out.println(statusR);
 		isCompared = true;
 	}
-	
-	public void setStatus(Status L, Status R){
-		statusL.add(L);
-		statusR.add(R);
+
+	public void initStatus(Status L, Status R, int index){
+		statusL.add(index, L);
+		statusR.add(index, R);
 	}
 	
-	public ArrayList<Status> getStatus(String LR) {
+	public void setStatus(Status L, Status R, int index){
+		statusL.set(index, L);
+		statusR.set(index, R);
+	}
+	
+	public LinkedList<Status> getStatus(String LR) {
 		if(LR.equalsIgnoreCase("L")) {
 			return statusL;
 		}else if(LR.equalsIgnoreCase("R")) {
 			return statusR;
 		}else {
 			return null;
-		}
-			
+		}		
 	}
+	
 	public boolean isCompared() {
 		return isCompared;
 	}
+
+	// 공통부분 길이
+	public int LCS_length(int dataIndex) {
+		return lcs_table[dataL_cp.get(dataIndex).length()][dataR_cp.get(dataIndex).length()];
+	}
+	
 	public void lcs() {
-		int dataLen = (dataL.size() > dataR.size()) ? dataL.size() : dataR.size();
+		lcs_table = new int[dataL_cp.size()+1][dataR_cp.size()+1];
+		int Llen = dataL_cp.size();
+		int Rlen = dataR_cp.size();
 		
-		for(int dataIndex=0; dataIndex<dataLen; dataIndex++) {
-			
-			lcs_table = new int[dataL.get(dataIndex).length()+1][dataR.get(dataIndex).length()+1];
-			
-			// LCS 테이블 생성
-			for (int i = 0; i < dataL.get(dataIndex).length()+1; i++) {
-				for (int j = 0; j < dataR.get(dataIndex).length()+1; j++) {
-					lcs_table[i][j]=0;
-				}
-			}	
-			for (int i = 1; i < dataL.get(dataIndex).length()+1; i++) {
-				for (int j = 1; j < dataR.get(dataIndex).length()+1; j++) {
-					if(dataL.get(dataIndex).charAt(i-1) == dataR.get(dataIndex).charAt(j-1)) {
-						lcs_table[i][j] = lcs_table[i-1][j-1]+1;
-					} else {
-						lcs_table[i][j] = Math.max(lcs_table[i][j-1], lcs_table[i-1][j]);
+		/* LCS 테이블 생성 */
+		// 처음 라인 0 초기화
+		for (int i = 0; i < Llen+1; i++) {
+			for (int j = 0; j < Rlen+1; j++) {
+				lcs_table[i][j]=0;
+			}
+		}
+		// if 같으면 그때까지 공통부분+1 / else 다르면 둘 중에서 긴 공통부분 가져옴
+		for (int i = 1; i < Llen+1; i++) {
+			for (int j = 1; j < Rlen+1; j++) {
+				if(dataL_cp.get(i-1).equals(dataR_cp.get(j-1))) {
+					lcs_table[i][j] = lcs_table[i-1][j-1]+1;
+					Point p = new Point();
+					p.x = i;
+					p.y = j;
+					lcsList.add(p);
+				} else {
+					lcs_table[i][j] = Math.max(lcs_table[i][j-1], lcs_table[i-1][j]);
+					if(lcs_table[i][j-1] < lcs_table[i-1][j]) {
+					}
+					else if(lcs_table[i][j-1] > lcs_table[i-1][j]) {
 					}
 				}
 			}
-			for (int i = 0; i < dataL.get(dataIndex).length()+1; i++) {
-				for (int j = 0; j < dataR.get(dataIndex).length()+1; j++) {
-					System.out.print(lcs_table[i][j]);
-				}
-				System.out.println();
-			}	
-			
-			// line by line 상태 비교
-			if ((LCS_length(dataIndex) == dataL.get(dataIndex).length()) && (LCS_length(dataIndex) == dataR.get(dataIndex).length())) {	//공통부분길이가 L,R 전체 길이와 동일하면 equal
-				setStatus(Status.EQUAL, Status.EQUAL);
-			}
-			
-			else if(LCS_length(dataIndex) == 0) {							// 공통부분길이가 0일때
-				if(dataL.get(dataIndex).length() == 0) {		// 왼쪽 문장 길이도 0이면 오른쪽 문장 추가된 것 
-					setStatus(Status.DELETE, Status.ADD);	
-				} else if(dataR.get(dataIndex).length() == 0) {	// 오른쪽 문장 길이도 0이면 왼쪽 문장 추가된 것
-					setStatus(Status.ADD, Status.DELETE);	
-				} 
-			}
-			else {												// 다 해당되지 않으면 그냥 일부만 다른 문장
-				setStatus(Status.DIFF, Status.DIFF);	
-			}
-			
-			// 두 문서의 길이가 다르면 차이만큼 공백라인 추가
-			int gap = dataL.get(dataIndex).length() - dataR.get(dataIndex).length();
-			if(gap>0) {	// 왼쪽이 더 길면 오른쪽 추가
-				for(int i=0; i<gap; i++) {
-					dataR.add("");
-				}
-			}else if(gap<0) {	// 오른쪽이 더 길면 왼쪽 추가
-				for(int i=0; i>gap; i--) {
-					dataL.add("");
-				}
-			}
-			
 		}
-	}
-	
-	// 공통부분 길이
-	public int LCS_length(int dataIndex) {
-		return lcs_table[dataL.get(dataIndex).length()][dataR.get(dataIndex).length()];
+		
+		// status를 길이만큼 모두 equal로 세팅
+		int dataMaxLen = Math.max(dataL.size(), dataR.size());
+		for(int i=0; i<dataMaxLen; i++) {
+			initStatus(Status.EQUAL, Status.EQUAL, i);
+		}
+		
+		// 라인 단위 추가나 삭제된 부분 추가
+		int Ladd = 0;
+		int Radd = 0;
+		for(int i=0; i<lcsList.size()-1; i++) {
+			if((lcsList.get(i+1).x - lcsList.get(i).x) != (lcsList.get(i+1).y - lcsList.get(i).y)) {
+				if((lcsList.get(i+1).x - lcsList.get(i).x) != 1) {
+					for(int k = lcsList.get(i).x; k < lcsList.get(i+1).x - 1; k++) {
+						dataR.add(k+Ladd, "");
+						setStatus(Status.ADD, Status.DELETE, k+Ladd);
+						Radd++;
+					}
+				}
+				if((lcsList.get(i+1).y - lcsList.get(i).y) != 1) {
+					for(int k = lcsList.get(i).y; k < lcsList.get(i+1).y - 1; k++) {
+						dataL.add(k+Radd, "");
+						setStatus(Status.DELETE, Status.ADD, k+Radd);
+						Ladd++;
+					}
+				}
+			}
+			else if((lcsList.get(i+1).y - lcsList.get(i).y) != 1){
+				setStatus(Status.CHANGE, Status.CHANGE, lcsList.get(i).x);
+			}
+		}
+		
+		// 두 문서의 길이가 다르면 차이만큼 뒤에 공백라인 추가
+		int gap = dataL.size() - dataR.size();
+		if(gap>0) {	// 왼쪽이 더 길면 오른쪽 추가
+			for(int i=0; i<gap; i++) {
+				dataR.add("");
+				initStatus(Status.ADD, Status.DELETE, statusL.size());
+			}
+		}else if(gap<0) {	// 오른쪽이 더 길면 왼쪽 추가
+			for(int i=0; i>gap; i--) {
+				dataL.add("");
+				initStatus(Status.DELETE, Status.ADD, statusL.size());
+			}
+		}
 	}
 }
