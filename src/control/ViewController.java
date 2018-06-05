@@ -1,6 +1,7 @@
 package control;
 
 import control.interfaces.IViewController;
+import view.BtnImage;
 import view.MainFrame;
 import view.interfaces.IMainFrame;
 
@@ -36,7 +37,13 @@ public class ViewController implements IViewController{
 					
 				}, 
 				(editEvent)->{
-					
+					BtnImage btn = (BtnImage) editEvent.getSource();
+					if (btn.getImageIndex() == 0) {
+						btn.setImageIndex(1);
+					}
+					else {
+						btn.setImageIndex(0);
+					}
 				},
 				(saveEvent)->{
 					
@@ -47,7 +54,13 @@ public class ViewController implements IViewController{
 					
 				}, 
 				(editEvent)->{
-					
+					BtnImage btn = (BtnImage) editEvent.getSource();
+					if (btn.getImageIndex() == 0) {
+						btn.setImageIndex(1);
+					}
+					else {
+						btn.setImageIndex(0);
+					}
 				},
 				(saveEvent)->{
 					

@@ -6,13 +6,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class BtnImage extends JButton{
 	
-	private ImageIcon icon;
+	private ArrayList<ImageIcon> icons;
+	private int imgIndex = 0;
 	private int iconWidth, iconHeight;
 	private String desc;
 	
@@ -28,7 +30,8 @@ public class BtnImage extends JButton{
 		paddingText   = 18;
 	
 	public BtnImage(ImageIcon icon) {
-		this.icon = icon;
+		this.icons = new ArrayList<>();
+		this.icons.add(icon);
 		this.iconWidth = icon.getIconWidth();
 		this.iconHeight = icon.getIconHeight();
 		this.desc = null;
@@ -36,10 +39,19 @@ public class BtnImage extends JButton{
 	}
 	
 	public BtnImage(ImageIcon icon, String desc) {
-		this.icon = icon;
+		this.icons = new ArrayList<>();
+		this.icons.add(icon);
 		this.iconWidth = icon.getIconWidth();
 		this.iconHeight = icon.getIconHeight();
 		this.desc = desc;
+		this.mouseListener();
+	}
+	
+	public BtnImage(ArrayList<ImageIcon> images) {
+		this.icons = images;
+		this.iconWidth = images.get(0).getIconWidth();
+		this.iconHeight = images.get(0).getIconHeight();
+		this.desc = null;
 		this.mouseListener();
 	}
 	
@@ -69,8 +81,12 @@ public class BtnImage extends JButton{
 	
 	public void setImageSize(int width, int height) {
 		// image resize
-		Image newImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_FAST);
-		icon = new ImageIcon(newImage);
+		for (int i = 0; i < icons.size(); i++) {
+			ImageIcon icon = icons.get(i);
+			Image newImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_FAST);
+			icon.setImage(newImage);
+		}
+		
 		// save data
 		iconWidth = width;
 		iconHeight = height;
@@ -87,6 +103,15 @@ public class BtnImage extends JButton{
 
 	public void setBorder(boolean isBorder) {
 		this.isBorder = isBorder;
+	}
+	
+	public void setImageIndex(int imgIndex) {
+		if (0 <= imgIndex && imgIndex < icons.size()) this.imgIndex = imgIndex;
+		else return;
+	}
+	
+	public int getImageIndex() {
+		return this.imgIndex;
 	}
 	
 	@Override
@@ -109,7 +134,7 @@ public class BtnImage extends JButton{
 		this.setMinimumSize(size);
 		
 		// draw image
-		g.drawImage(icon.getImage(), this.getWidth()/2 - iconWidth/2, paddingTop, null);
+		g.drawImage(icons.get(imgIndex).getImage(), this.getWidth()/2 - iconWidth/2, paddingTop, null);
 		
 		// draw text
 		if (desc != null) {
