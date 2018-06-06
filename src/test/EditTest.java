@@ -1,5 +1,8 @@
+package test;
 
-public class Test {
+import model.Edit;
+
+public class EditTest {
 
 	public static void main(String[] args) {
 		Edit edit = new Edit();
