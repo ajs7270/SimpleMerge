@@ -171,6 +171,12 @@ public class FilePanel extends JPanel implements IFilePanel{
 		if (contentsArea == null) return;
 		contentsArea.setEditable(editable);
 		contentsArea.setDragEnabled(true);
+		if (editable == true) {
+			btnEdit.setImageIndex(1);
+		}
+		else {
+			btnEdit.setImageIndex(0);
+		}
 	}
 	
 	@Override
