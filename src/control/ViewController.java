@@ -1,6 +1,7 @@
 package control;
 
 import control.interfaces.IViewController;
+import model.Edit;
 import model.File;
 import view.BtnImage;
 import view.MainFrame;
@@ -14,7 +15,9 @@ public class ViewController implements IViewController{
 	private FileManager filemanager;
 	
 	public ViewController() {
+		System.out.println("Test");
 		initComponents();
+		System.out.println("Test");
 		addBtnActionListener();
 	}
 	
@@ -26,7 +29,7 @@ public class ViewController implements IViewController{
 		mainFrame = new MainFrame(); // init complete
 		leftFile = new File();
 		rightFile = new File();
-		filemanager = new FileManager();
+		filemanager = new FileManager(this);
 		
 	}
 	
@@ -47,12 +50,11 @@ public class ViewController implements IViewController{
 					filemanager.leftfile_Load(leftFile);
 				}, 
 				(editEvent)->{
-					BtnImage btn = (BtnImage) editEvent.getSource();
-					if (btn.getImageIndex() == 0) { // edit 모드 시작!
-						btn.setImageIndex(1);
+					if (filemanager.getEditMode(MainFrame.PANEL_LEFT) == Edit.UNEDITABLE) { // edit 모드 시작!
+						filemanager.onEditMode(MainFrame.PANEL_LEFT);
 					}
 					else { // 보기만 하는 모드!
-						btn.setImageIndex(0);
+						filemanager.offEditMode(MainFrame.PANEL_LEFT);
 					}
 				},
 				(saveEvent)->{
@@ -64,12 +66,11 @@ public class ViewController implements IViewController{
 					filemanager.rightfile_Load(rightFile);
 				}, 
 				(editEvent)->{
-					BtnImage btn = (BtnImage) editEvent.getSource();
-					if (btn.getImageIndex() == 0) { // edit 모드 시작!
-						btn.setImageIndex(1);
+					if (filemanager.getEditMode(MainFrame.PANEL_RIGHT) == Edit.UNEDITABLE) { // edit 모드 시작!
+						filemanager.onEditMode(MainFrame.PANEL_RIGHT);
 					}
 					else { // 보기만 하는 모드!
-						btn.setImageIndex(0);
+						filemanager.offEditMode(MainFrame.PANEL_RIGHT);
 					}
 				},
 				(saveEvent)->{
@@ -84,6 +85,12 @@ public class ViewController implements IViewController{
 	@Override
 	public IMainFrame getMainFrameInterface() {
 		return mainFrame;
+	}
+
+	@Override
+	public void editModeChangeCallback(int whichPanel, int editMode) {
+		boolean editable = (editMode == Edit.EDITABLE) ? true : false;
+		mainFrame.setFilePanelEditable(whichPanel, editable);
 	}
 	
 }
