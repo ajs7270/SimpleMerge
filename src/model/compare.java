@@ -6,10 +6,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-enum Status {
-    EQUAL, CHANGE, ADD, DELETE
-}
-
 class Point {
 	int x;
 	int y;
