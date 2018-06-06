@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -18,7 +17,7 @@ import javax.swing.UIManager;
 public class File {
 
 	// 파일의 데이터로 line by line으로 데이터가 저장되어 있다.
-	private String path = "";
+	private String path = "[No File]";
 	private List<String> data = new LinkedList<String>();
 	private JFrame window;
 	private JFileChooser myFileChooser;
@@ -32,7 +31,7 @@ public class File {
 	}
 	
 	public void init() {
-		path = "";
+		path = "[No File]";
 		data.clear();
 	}
 

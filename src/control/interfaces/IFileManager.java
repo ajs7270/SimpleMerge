@@ -13,4 +13,7 @@ public interface IFileManager {
 	public void MergeToRight();
 	
 	public void changeFileData(int whichFile, String contents);
+	
+	public void leftFileSave();
+	public void rightFileSave();
 }

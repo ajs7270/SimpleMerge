@@ -9,8 +9,6 @@ import view.interfaces.IMainFrame;
 public class ViewController implements IViewController{
 
 	private MainFrame mainFrame;
-	private File leftFile;
-	private File rightFile;
 	private FileManager filemanager;
 	
 	public ViewController() {
@@ -26,8 +24,6 @@ public class ViewController implements IViewController{
 	
 	private void initComponents() {
 		mainFrame = new MainFrame(); // init complete
-		leftFile = new File();
-		rightFile = new File();
 		filemanager = new FileManager(this);
 		
 	}
@@ -57,7 +53,8 @@ public class ViewController implements IViewController{
 					}
 				},
 				(saveEvent)->{
-					filemanager.leftfile_Save(leftFile);
+					filemanager.offEditMode(MainFrame.PANEL_LEFT);
+					filemanager.leftFileSave();
 				});
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_RIGHT, 
@@ -73,7 +70,8 @@ public class ViewController implements IViewController{
 					}
 				},
 				(saveEvent)->{
-					filemanager.rightfile_Save(rightFile);
+					filemanager.offEditMode(MainFrame.PANEL_RIGHT);
+					filemanager.rightFileSave();
 				});
 	}
 	

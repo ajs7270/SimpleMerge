@@ -147,16 +147,14 @@ public class FileManager implements IFileManager{
 
 	
 	// Save file
-	public void leftfile_Save(File input_file){
+	public void leftFileSave(){
 
-		left_file = input_file;
 		left_file.save();
 	
 	}
 	
-	public void rightfile_Save(File input_file){
+	public void rightFileSave(){
 
-		right_file = input_file;
 		right_file.save();
 	
 	}
@@ -181,6 +179,7 @@ public class FileManager implements IFileManager{
 		String[] rawData = contents.split("\n");
 		for (String strLine : rawData) {
 			file.getData().add(strLine);
+			System.out.println(strLine);
 		}
 		System.out.println("save it! " + file.getData().size());
 		

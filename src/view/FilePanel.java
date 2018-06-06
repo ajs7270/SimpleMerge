@@ -55,7 +55,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
 		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_VIEW)));
 		btnEdit = new BtnImage(editImages);
-		fileNameLabel = new JLabel();
+		fileNameLabel = new JLabel("[No File]");
 		contentsArea = new JTextArea();
 		scrollArea = new JScrollPane(contentsArea);
 	}
