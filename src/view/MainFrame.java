@@ -81,6 +81,7 @@ public class MainFrame extends JFrame implements IMainFrame{
 		case PANEL_LEFT:
 			return leftPanel;
 		case PANEL_RIGHT:
+			return rightPanel;
 		default:
 			return null;
 		}

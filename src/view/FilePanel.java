@@ -24,6 +24,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private static final long serialVersionUID = 1L;
 	private static final String PATH_LOAD = "res/icon/folder.png";
 	private static final String PATH_EDIT = "res/icon/pencil.png";
+	private static final String PATH_VIEW = "res/icon/binoculars.png";
 	private static final String PATH_SAVE = "res/icon/diskette.png";
 	
 	private int panelId = -1;
@@ -39,6 +40,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 		initComponents();
 		arrangeComponents();
 		settingComponents();
+		this.setTextEditable(false);
 		//testSetting();
 	}
 	
@@ -48,8 +50,11 @@ public class FilePanel extends JPanel implements IFilePanel{
 	
 	private void initComponents() {
 		btnLoad = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LOAD)));
-		btnSave = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
-		btnEdit = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+		btnSave = new BtnImage 	(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+		ArrayList<ImageIcon> editImages = new ArrayList<>();
+		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
+		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_VIEW)));
+		btnEdit = new BtnImage(editImages);
 		fileNameLabel = new JLabel();
 		contentsArea = new JTextArea();
 		scrollArea = new JScrollPane(contentsArea);

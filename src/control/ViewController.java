@@ -2,6 +2,7 @@ package control;
 
 import control.interfaces.IViewController;
 import model.File;
+import view.BtnImage;
 import view.MainFrame;
 import view.interfaces.IMainFrame;
 
@@ -46,7 +47,13 @@ public class ViewController implements IViewController{
 					filemanager.leftfile_Load(leftFile);
 				}, 
 				(editEvent)->{
-					
+					BtnImage btn = (BtnImage) editEvent.getSource();
+					if (btn.getImageIndex() == 0) { // edit 모드 시작!
+						btn.setImageIndex(1);
+					}
+					else { // 보기만 하는 모드!
+						btn.setImageIndex(0);
+					}
 				},
 				(saveEvent)->{
 					filemanager.leftfile_Save(leftFile);
@@ -57,7 +64,13 @@ public class ViewController implements IViewController{
 					filemanager.rightfile_Load(rightFile);         // 이거 실행이 안됩니다..
 				}, 
 				(editEvent)->{
-					
+					BtnImage btn = (BtnImage) editEvent.getSource();
+					if (btn.getImageIndex() == 0) { // edit 모드 시작!
+						btn.setImageIndex(1);
+					}
+					else { // 보기만 하는 모드!
+						btn.setImageIndex(0);
+					}
 				},
 				(saveEvent)->{
 					filemanager.rightfile_Save(rightFile);
