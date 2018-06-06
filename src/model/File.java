@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 public class File {
 
 	// 파일의 데이터로 line by line으로 데이터가 저장되어 있다.
+	private String path = "";
 	private List<String> data = new LinkedList<String>();
 	private JFrame window;
 	private JFileChooser myFileChooser;
@@ -28,6 +29,11 @@ public class File {
 		} catch (Exception e) {		}
 		window = new JFrame();
 		myFileChooser = new JFileChooser();
+	}
+	
+	public void init() {
+		path = "";
+		data.clear();
 	}
 
 	public void load() {
@@ -47,6 +53,7 @@ public class File {
 			try {
 				// FileChooser로 선택된 파일을 파일객체에 대입
 				java.io.File myFile = myFileChooser.getSelectedFile();
+				path = myFile.getAbsolutePath();
 
 				// 선택된 파일의 절대경로를 지정하여 BufferedReader 객체를 작성
 				BufferedReader myReader = new BufferedReader(new FileReader(myFile.getAbsolutePath()));
@@ -97,5 +104,9 @@ public class File {
 
 	public List<String> getData() {
 		return this.data;
+	}
+	
+	public String getPath() {
+		return this.path;
 	}
 }

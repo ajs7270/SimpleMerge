@@ -3,7 +3,6 @@ package control;
 import control.interfaces.IViewController;
 import model.Edit;
 import model.File;
-import view.BtnImage;
 import view.MainFrame;
 import view.interfaces.IMainFrame;
 
@@ -47,7 +46,7 @@ public class ViewController implements IViewController{
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_LEFT, 
 				(loadEvent)->{
-					filemanager.leftfile_Load(leftFile);
+					filemanager.leftFileLoad();
 				}, 
 				(editEvent)->{
 					if (filemanager.getEditMode(MainFrame.PANEL_LEFT) == Edit.UNEDITABLE) { // edit 모드 시작!
@@ -63,7 +62,7 @@ public class ViewController implements IViewController{
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_RIGHT, 
 				(loadEvent)->{
-					filemanager.rightfile_Load(rightFile);
+					filemanager.rightFileLoad();
 				}, 
 				(editEvent)->{
 					if (filemanager.getEditMode(MainFrame.PANEL_RIGHT) == Edit.UNEDITABLE) { // edit 모드 시작!
@@ -91,6 +90,23 @@ public class ViewController implements IViewController{
 	public void editModeChangeCallback(int whichPanel, int editMode) {
 		boolean editable = (editMode == Edit.EDITABLE) ? true : false;
 		mainFrame.setFilePanelEditable(whichPanel, editable);
+		if (editable == false) {
+			filemanager.changeFileData(whichPanel, mainFrame.getFilePanelContents(whichPanel));
+		}
+	}
+	
+	@Override
+	public void loadFileCallback(int whichPanel, File file) {
+		
+		StringBuilder contents = new StringBuilder();
+		for (String lineStr : file.getData()) {
+			contents.append(lineStr);
+			contents.append("\n");
+		}
+		
+		mainFrame.setFilePanelContents(whichPanel, contents.toString());
+		mainFrame.setFilePanelName(whichPanel, file.getPath());
+		System.out.println("hi");
 	}
 	
 }

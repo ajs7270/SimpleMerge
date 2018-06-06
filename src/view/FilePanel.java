@@ -159,6 +159,7 @@ public class FilePanel extends JPanel implements IFilePanel{
 	@Override
 	public void setText(String text) {
 		if (contentsArea == null) return;
+		//contentsArea.setText(null);
 		contentsArea.setText(text);
 	}
 	@Override

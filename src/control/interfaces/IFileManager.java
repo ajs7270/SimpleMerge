@@ -2,6 +2,8 @@ package control.interfaces;
 
 public interface IFileManager {
 
+	public void leftFileLoad();
+	public void rightFileLoad();
 	
 	public int getEditMode(int whichPanel);
 	public void onEditMode(int whichPanel);
@@ -10,5 +12,5 @@ public interface IFileManager {
 	public void MergeToLeft();
 	public void MergeToRight();
 	
-	
+	public void changeFileData(int whichFile, String contents);
 }

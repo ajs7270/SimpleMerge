@@ -31,23 +31,32 @@ public class FileManager implements IFileManager{
 		this.viewController = viewController;
 	}
 	
-	// Load file
-	public void leftfile_Load(File input_file){       // input_file -> left file
+	// ###################################################
+	// PART: Load
+	// ###################################################
+	
+	@Override
+	// 왼쪽 파일 불러옴
+	public void leftFileLoad(){
 		
-		left_file = input_file;
+		left_file.init();
 		left_file.load();
+		viewController.loadFileCallback(MainFrame.PANEL_LEFT, left_file);
 	}
 	
-	public void rightfile_Load(File input_file){       // input_file -> right file
+	@Override
+	// 오른쪽 파일 불러옴
+	public void rightFileLoad(){
 		
-		right_file = input_file;
+		right_file.init();
 		right_file.load();
+		viewController.loadFileCallback(MainFrame.PANEL_RIGHT, right_file);
 	}
+	
 	
 	// ###################################################
 	// PART: Edit
 	// ###################################################
-	
 	// inner
 	
 	// 어떤 패널의 에딧 객체인지 반환
@@ -150,6 +159,31 @@ public class FileManager implements IFileManager{
 		right_file = input_file;
 		right_file.save();
 	
+	}
+	
+	private File getFile(int whichFile) {
+		switch(whichFile) {
+		case MainFrame.PANEL_LEFT:
+			return left_file;
+		case MainFrame.PANEL_RIGHT:
+			return right_file;
+		default:
+			return null;
+		}
+	}
+	
+	@Override
+	public void changeFileData(int whichFile, String contents) {
+		File file = getFile(whichFile);
+		if (file == null) return;
+		
+		file.getData().clear();
+		String[] rawData = contents.split("\n");
+		for (String strLine : rawData) {
+			file.getData().add(strLine);
+		}
+		System.out.println("save it! " + file.getData().size());
+		
 	}
 
 }
