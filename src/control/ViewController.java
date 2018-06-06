@@ -61,7 +61,7 @@ public class ViewController implements IViewController{
 		
 		mainFrame.setFilePanelAction(MainFrame.PANEL_RIGHT, 
 				(loadEvent)->{
-					filemanager.rightfile_Load(rightFile);         // 이거 실행이 안됩니다..
+					filemanager.rightfile_Load(rightFile);
 				}, 
 				(editEvent)->{
 					BtnImage btn = (BtnImage) editEvent.getSource();
