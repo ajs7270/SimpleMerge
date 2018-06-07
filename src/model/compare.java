@@ -23,6 +23,14 @@ public class compare {
 		isCompared = false;
 	}
 	
+	public List<String> getDataL(){
+		return dataL;
+	}
+	
+	public List<String> getDataR(){
+		return dataR;
+	}
+	
 	/* init data for compare */
 	public void setFiles(List<String> L, List<String> R) {
 		dataL = L;                  // left data

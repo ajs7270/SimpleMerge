@@ -24,6 +24,8 @@ public class FileManager implements IFileManager{
 	//Edit edit_mode = new Edit();   // 0: uneditable
 	Edit leftEdit = new Edit();
 	Edit rightEdit = new Edit();
+	Edit leftCmpEdit = new Edit();
+	Edit rightCmpEdit = new Edit();
 	ViewController viewController;
 	
 	
@@ -54,6 +56,10 @@ public class FileManager implements IFileManager{
 		viewController.loadFileCallback(MainFrame.PANEL_RIGHT, right_file);
 	}
 	
+	@Override
+	public boolean isFileLoad() {
+		return left_file.isLoad() && right_file.isLoad();
+	}
 	
 	// ###################################################
 	// PART: Edit
@@ -67,6 +73,17 @@ public class FileManager implements IFileManager{
 			return leftEdit;
 		case MainFrame.PANEL_RIGHT:
 			return rightEdit;
+		default:
+			return null;
+		}
+	}
+	
+	private Edit getCmpEdit(int whichPanel) {
+		switch(whichPanel) {
+		case MainFrame.PANEL_LEFT:
+			return leftCmpEdit;
+		case MainFrame.PANEL_RIGHT:
+			return rightCmpEdit;
 		default:
 			return null;
 		}
@@ -98,6 +115,32 @@ public class FileManager implements IFileManager{
 		if (edit == null) return;
 		edit.setEditMode(Edit.UNEDITABLE);
 		viewController.editModeChangeCallback(whichPanel, Edit.UNEDITABLE);
+	}
+	
+	@Override
+	// 해당 패널의 에딧 모드 반환
+	public int getCmpEditMode(int whichPanel) {
+		Edit edit = getCmpEdit(whichPanel);
+		if (edit == null) return -1;
+		return edit.getEditMode();
+	}
+
+	@Override
+	// 해당 패널의 에딧 모드를 킴
+	public void onCmpEditMode(int whichPanel) {
+		Edit edit = getCmpEdit(whichPanel);
+		if (edit == null) return;
+		edit.setEditMode(Edit.EDITABLE);
+		viewController.cmpEditModeChangeCallback(whichPanel, Edit.EDITABLE);
+	}
+	
+	@Override
+	// 해당 패널의 에딧 모드를 끔
+	public void offCmpEditMode(int whichPanel) {
+		Edit edit = getEdit(whichPanel);
+		if (edit == null) return;
+		edit.setEditMode(Edit.UNEDITABLE);
+		viewController.cmpEditModeChangeCallback(whichPanel, Edit.UNEDITABLE);
 	}
 	
 	// ###################################################
@@ -144,14 +187,14 @@ public class FileManager implements IFileManager{
 	// PART: Compare
 	// ###################################################
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void Compare(){
-		compare.setFiles(left_file.getData(), right_file.getData());
+		LinkedList<String> llist = (LinkedList<String>) left_file.getData();
+		LinkedList<String> rlist = (LinkedList<String>) right_file.getData();
+		compare.setFiles((LinkedList<String>)llist.clone(), (LinkedList<String>)rlist.clone());
 		compare.lcs();
-
-
-		viewController.loadFileCallback(MainFrame.PANEL_LEFT, left_file);
-		viewController.loadFileCallback(MainFrame.PANEL_RIGHT, right_file);
+		viewController.cmpCallback(compare.getDataL(), compare.getDataR());
 	}
 	
 
@@ -182,7 +225,8 @@ public class FileManager implements IFileManager{
 	
 	}
 	
-	private File getFile(int whichFile) {
+	@Override
+	public File getFile(int whichFile) {
 		switch(whichFile) {
 		case MainFrame.PANEL_LEFT:
 			return left_file;
@@ -207,6 +251,8 @@ public class FileManager implements IFileManager{
 		System.out.println("save it! " + file.getData().size());
 		
 	}
+
+
 
 
 }

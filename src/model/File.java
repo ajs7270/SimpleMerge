@@ -19,6 +19,8 @@ public class File {
 	// 파일의 데이터로 line by line으로 데이터가 저장되어 있다.
 	private String path = "[No File]";
 	private List<String> data = new LinkedList<String>();
+	private boolean isLoad = false;
+	
 	private JFrame window;
 	private JFileChooser myFileChooser;
 
@@ -64,9 +66,10 @@ public class File {
 
 				// Buffered Reader 객체 클로즈
 				myReader.close();
-
+				isLoad = true;
 			} catch (IOException ie) {
 				System.out.println(ie + "=> 입출력오류");
+				isLoad = false;
 			}
 		}
 	}
@@ -107,5 +110,13 @@ public class File {
 	
 	public String getPath() {
 		return this.path;
+	}
+
+	public boolean isLoad() {
+		return isLoad;
+	}
+
+	public void setLoad(boolean isLoad) {
+		this.isLoad = isLoad;
 	}
 }

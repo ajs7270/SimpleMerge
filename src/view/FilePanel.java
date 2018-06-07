@@ -27,7 +27,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private static final String PATH_VIEW = "res/icon/binoculars.png";
 	private static final String PATH_SAVE = "res/icon/diskette.png";
 	
+	public static final int TYPE_MAIN = 0, TYPE_COMPARE = 1;
+	
 	private int panelId = -1;
+	private int type;
 	private BtnImage btnLoad, btnSave, btnEdit;
 	private JLabel fileNameLabel;
 	private JTextArea contentsArea;
@@ -35,13 +38,18 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private List<LineColor> lineColor;
 	
 	public FilePanel(int panelId) {
+		this(panelId, TYPE_MAIN);
+	}
+	
+	public FilePanel(int panelId, int type) {
+		this.setType(type);
 		setPanelId(panelId);
 		initLineColor();
 		initComponents();
 		arrangeComponents();
 		settingComponents();
 		this.setTextEditable(false);
-		//testSetting();
+		repaint();
 	}
 	
 	// ###################################################
@@ -49,8 +57,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 	// ###################################################
 	
 	private void initComponents() {
-		btnLoad = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LOAD)));
-		btnSave = new BtnImage 	(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+		if (type == TYPE_MAIN) {
+			btnLoad = new BtnImage(new ImageIcon(getClass().getClassLoader().getResource(PATH_LOAD)));btnSave = new BtnImage 	(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+			btnSave = new BtnImage 	(new ImageIcon(getClass().getClassLoader().getResource(PATH_SAVE)));
+		}
 		ArrayList<ImageIcon> editImages = new ArrayList<>();
 		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_EDIT)));
 		editImages.add(new ImageIcon(getClass().getClassLoader().getResource(PATH_VIEW)));
@@ -63,21 +73,26 @@ public class FilePanel extends JPanel implements IFilePanel{
 	private void arrangeComponents() {
 		
 		int iconSize = 16;
-		btnLoad.setImageSize(iconSize, iconSize);
-		btnLoad.setBorder(false);
-		btnSave.setImageSize(iconSize, iconSize);
-		btnSave.setBorder(false);
+		if (this.getType() == TYPE_MAIN) {
+			btnLoad.setImageSize(iconSize, iconSize);
+			btnLoad.setBorder(false);
+			btnLoad.setOpaque(false);
+			
+			btnSave.setImageSize(iconSize, iconSize);
+			btnSave.setBorder(false);
+			btnSave.setOpaque(false);
+		}
+		
 		btnEdit.setImageSize(iconSize, iconSize);
 		btnEdit.setBorder(false);
-		
-		btnLoad.setOpaque(false);
-		btnSave.setOpaque(false);
 		btnEdit.setOpaque(false);
 		
 		JPanel topTopPanel = new JPanel();
 		topTopPanel.setLayout(new FlowLayout());
-		topTopPanel.add(btnLoad);
-		topTopPanel.add(btnSave);
+		if (this.getType() == TYPE_MAIN) {
+			topTopPanel.add(btnLoad);
+			topTopPanel.add(btnSave);
+		}
 		topTopPanel.add(btnEdit);
 		
 		JPanel topBottomPanel = new JPanel();
@@ -276,6 +291,20 @@ public class FilePanel extends JPanel implements IFilePanel{
 	@Override
 	public void setSaveAction(ActionListener action) {
 		btnSave.addActionListener(action);
+	}
+
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	

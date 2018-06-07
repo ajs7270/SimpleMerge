@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 public class BtnImage extends JButton{
 	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<ImageIcon> icons;
 	private int imgIndex = 0;
 	private int iconWidth, iconHeight;
