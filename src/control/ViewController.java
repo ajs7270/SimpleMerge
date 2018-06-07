@@ -16,9 +16,7 @@ public class ViewController implements IViewController{
 	private FileManager filemanager;
 	
 	public ViewController() {
-		System.out.println("Test");
 		initComponents();
-		System.out.println("Test");
 		addBtnActionListener();
 	}
 	
@@ -52,7 +50,6 @@ public class ViewController implements IViewController{
 				lineColor = LineColor.LINE_MINUS;
 				break;
 			}
-			
 			mainFrame.setFilePanelLineColor(whichPanel, lineNum, lineColor.getColor());
 			lineNum++;
 		}

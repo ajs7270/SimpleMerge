@@ -226,9 +226,6 @@ public class FilePanel extends JPanel implements IFilePanel{
 	@Override
 	public void setLineColor(int lineNum, LineColor color) {
 		if (availableLineNum(lineNum)) {
-			return;
-		}
-		else {
 			lineColor.set(lineNum, color);
 		}
 	}
@@ -239,6 +236,7 @@ public class FilePanel extends JPanel implements IFilePanel{
     	
         
         for (int index = 0; index < lineColor.size(); index++) {
+        	System.out.println(lineColor.get(index));
         	Color realColor = getColor(lineColor.get(index));
         	DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter( realColor );
             highlighter.setDrawsLayeredHighlights(false); // this is the key line
@@ -251,14 +249,16 @@ public class FilePanel extends JPanel implements IFilePanel{
                 System.out.println(e);
             }
         }
+        System.out.println("sdfasdasg");
 	}
 	
 	@Override
 	public void setLineColorSize(int size) {
 		lineColor = new ArrayList<>();
-		for (int i = 0; i < size - lineColor.size(); i++) {
+		for (int i = 0; i < size; i++) {
 			lineColor.add(LineColor.LINE_BLANK);
 		}
+		System.out.println(lineColor.size());
 	}
 
 	@Override

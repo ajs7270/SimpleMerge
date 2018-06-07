@@ -154,6 +154,7 @@ public class MainFrame extends JFrame implements IMainFrame{
 		FilePanel filePanel = getFilePanelById(idFilePanel);
 		if (filePanel == null) return;
 		filePanel.setLineColorSize(size);
+		System.out.println("sdfasd " + size);
 	}
 
 	@Override

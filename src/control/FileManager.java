@@ -148,6 +148,10 @@ public class FileManager implements IFileManager{
 	public void Compare(){
 		compare.setFiles(left_file.getData(), right_file.getData());
 		compare.lcs();
+
+
+		viewController.loadFileCallback(MainFrame.PANEL_LEFT, left_file);
+		viewController.loadFileCallback(MainFrame.PANEL_RIGHT, right_file);
 	}
 	
 
