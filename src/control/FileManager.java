@@ -14,9 +14,6 @@ import view.MainFrame;
 public class FileManager implements IFileManager{
 	
 	// create temporary file object
-	List<Integer> selectedLineList = new LinkedList<Integer>();
-	List<String> leftfile_contents = new LinkedList<String>();                  // left file contents
-	List<String> rightfile_contents = new LinkedList<String>();                 // right file contents
 	File left_file = new File();
 	File right_file = new File();
 	Merge merge = new Merge();
@@ -137,7 +134,7 @@ public class FileManager implements IFileManager{
 	@Override
 	// 해당 패널의 에딧 모드를 끔
 	public void offCmpEditMode(int whichPanel) {
-		Edit edit = getEdit(whichPanel);
+		Edit edit = getCmpEdit(whichPanel);
 		if (edit == null) return;
 		edit.setEditMode(Edit.UNEDITABLE);
 		viewController.cmpEditModeChangeCallback(whichPanel, Edit.UNEDITABLE);
@@ -148,15 +145,16 @@ public class FileManager implements IFileManager{
 	// ###################################################
 	
 	@Override
-	public void MergeToLeft(){
+	public void MergeToLeft(List<Integer> selectedLineList){
 		
 		
 		if(compare.isCompared()) 				                 // Merge is available
 		{
-			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
+			merge.setFiles(selectedLineList, compare.getDataL(), compare.getDataR());
 			merge.MergeToLeft();
-			this.offEditMode(MainFrame.PANEL_LEFT);                                // turn off edit mode
-			this.offEditMode(MainFrame.PANEL_RIGHT);
+			this.offCmpEditMode(MainFrame.PANEL_LEFT);                                // turn off edit mode
+			this.offCmpEditMode(MainFrame.PANEL_RIGHT);
+			viewController.cmpMergeCallback(selectedLineList, MainFrame.PANEL_LEFT);
 		}
 		else                                                    // Merge is not available
 		{
@@ -166,15 +164,16 @@ public class FileManager implements IFileManager{
 	}
 	
 	@Override
-	public void MergeToRight(){
+	public void MergeToRight(List<Integer> selectedLineList){
 		
 		
 		if(compare.isCompared())                                // Merge is available
 		{
-			merge.setFiles(selectedLineList, left_file.getData(), right_file.getData());
+			merge.setFiles(selectedLineList, compare.getDataL(), compare.getDataR());
 			merge.MergeToRight();
-			this.offEditMode(MainFrame.PANEL_LEFT);                                // turn off edit mode
-			this.offEditMode(MainFrame.PANEL_RIGHT);
+			this.offCmpEditMode(MainFrame.PANEL_LEFT);                                // turn off edit mode
+			this.offCmpEditMode(MainFrame.PANEL_RIGHT);
+			viewController.cmpMergeCallback(selectedLineList, MainFrame.PANEL_RIGHT);
 		}
 		else                                                    // Merge is not available
 		{

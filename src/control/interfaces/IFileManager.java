@@ -21,8 +21,8 @@ public interface IFileManager {
 	public void onCmpEditMode(int whichPanel);
 	public void offCmpEditMode(int whichPanel);
 	
-	public void MergeToLeft();
-	public void MergeToRight();
+	public void MergeToLeft(List<Integer> selectedLineList);
+	public void MergeToRight(List<Integer> selectedLineList);
 	
 	public void changeFileData(int whichFile, String contents);
 	

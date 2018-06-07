@@ -141,7 +141,18 @@ public class ViewController implements IViewController{
 		// actions
 		compareView.setBtnAction(
 				(mergeToLeftAction)-> {
-			
+					List<Integer> list = compareView.getFilePanelDraggeedLine(MainFrame.PANEL_RIGHT);
+					for (Integer i : list) {
+						System.out.println("sdf " + i);
+					}
+					if (list.size() == 0 || list.isEmpty()) {
+						JOptionPane.showMessageDialog(compareView, "선택된 것이 없습니다.");
+						return;
+					}
+					int ret = JOptionPane.showConfirmDialog(compareView, String.format("총 %d 개의 줄이 선택되었습니다. 머지하시겠습니까?", list.size()), "Merge", JOptionPane.YES_NO_OPTION);
+					if (ret == JOptionPane.YES_OPTION) {
+						filemanager.MergeToLeft(list);
+					}
 		}, 
 				(applyAction) -> {
 					filemanager.changeFileData(MainFrame.PANEL_LEFT, compareView.getFilePanelContents(MainFrame.PANEL_LEFT));
@@ -156,7 +167,15 @@ public class ViewController implements IViewController{
 					cmpExitCallback();
 		}, 
 				(mergeToRightAction)->{
-			
+					List<Integer> list = compareView.getFilePanelDraggeedLine(MainFrame.PANEL_LEFT);
+					if (list.size() == 0 || list.isEmpty()) {
+						JOptionPane.showMessageDialog(compareView, "선택된 것이 없습니다.");
+						return;
+					}
+					int ret = JOptionPane.showConfirmDialog(compareView, String.format("총 %d 개의 줄이 선택되었습니다. 머지하시겠습니까?", list.size()), "Merge", JOptionPane.YES_NO_OPTION);
+					if (ret == JOptionPane.YES_OPTION) {
+						filemanager.MergeToRight(list);
+					}
 		});
 		
 		compareView.setFilePanelAction(MainFrame.PANEL_LEFT, 
@@ -270,6 +289,20 @@ public class ViewController implements IViewController{
 	public void cmpExitCallback() {
 		System.out.println("bye");
 		compareView = null;	
+	}
+
+	@Override
+	public void cmpMergeCallback(List<Integer> selectedLine, int toMerge) {
+		
+		setCompareViewContents(MainFrame.PANEL_LEFT, filemanager.compare.getDataL());
+		setCompareViewContents(MainFrame.PANEL_RIGHT, filemanager.compare.getDataR());
+		
+		for (Integer i : selectedLine) {
+			compareView.setFilePanelLineColor(MainFrame.PANEL_LEFT, i.intValue(), LineColor.LINE_BLANK.getColor());
+			compareView.setFilePanelLineColor(MainFrame.PANEL_RIGHT, i.intValue(), LineColor.LINE_BLANK.getColor());
+		}
+		compareView.paintFilePanelLineColor(MainFrame.PANEL_LEFT);
+		compareView.paintFilePanelLineColor(MainFrame.PANEL_RIGHT);
 	}
 	
 }

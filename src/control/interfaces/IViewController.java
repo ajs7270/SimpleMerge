@@ -13,4 +13,5 @@ public interface IViewController {
 	public void loadFileCallback(int whichPanel, File file);
 	public void cmpCallback(List<String> llist, List<String> rlist);
 	public void cmpExitCallback();
+	public void cmpMergeCallback(List<Integer> selectedLine, int toMerge);
 }

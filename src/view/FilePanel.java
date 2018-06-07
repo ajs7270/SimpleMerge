@@ -203,6 +203,10 @@ public class FilePanel extends JPanel implements IFilePanel{
 		try {
 			int startLine = contentsArea.getLineOfOffset(startPos);
 			int endLine = contentsArea.getLineOfOffset(endPos);
+			if (contentsArea.getLineStartOffset(endLine) == endPos) {
+				System.out.println("Ã£¾Ò´Ù ¿ä³ð!");
+				endLine--;
+			}
 			for (int index = startLine; index <= endLine; index++) {
 				draggedLines.add(index);
 			}
