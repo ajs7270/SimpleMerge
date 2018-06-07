@@ -1,8 +1,12 @@
 package control;
 
+import java.util.List;
+
 import control.interfaces.IViewController;
 import model.Edit;
 import model.File;
+import model.Status;
+import view.LineColor;
 import view.MainFrame;
 import view.interfaces.IMainFrame;
 
@@ -28,6 +32,32 @@ public class ViewController implements IViewController{
 		
 	}
 	
+	private void coloringLine(int whichPanel, List<Status> listStatus) {
+		int lineNum = 0;
+		for (Status lineStatus : listStatus) {
+			
+			// set line color
+			LineColor lineColor = LineColor.LINE_BLANK;
+			switch(lineStatus) {
+			case EQUAL:
+				lineColor = LineColor.LINE_BLANK;
+				break;
+			case CHANGE:
+				lineColor = LineColor.LINE_DIFF;
+				break;
+			case ADD:
+				lineColor = LineColor.LINE_PLUS;
+				break;
+			case DELETE:
+				lineColor = LineColor.LINE_MINUS;
+				break;
+			}
+			
+			mainFrame.setFilePanelLineColor(whichPanel, lineNum, lineColor.getColor());
+			lineNum++;
+		}
+	}
+	
 	private void addBtnActionListener() {
 		mainFrame.setBtnAction(
 				(mergeToLeftAction)->{
@@ -35,6 +65,13 @@ public class ViewController implements IViewController{
 				}, 
 				(cmpAction)->{
 					filemanager.Compare();
+					mainFrame.setFilePanelLineColorSize(MainFrame.PANEL_LEFT, filemanager.getLeftLineStatus().size());
+					mainFrame.setFilePanelLineColorSize(MainFrame.PANEL_RIGHT, filemanager.getRightLineStatus().size());
+					coloringLine(MainFrame.PANEL_LEFT, filemanager.getLeftLineStatus());
+					coloringLine(MainFrame.PANEL_RIGHT, filemanager.getRightLineStatus());
+					mainFrame.paintFilePanelLineColor(MainFrame.PANEL_LEFT);
+					mainFrame.paintFilePanelLineColor(MainFrame.PANEL_RIGHT);
+					
 				},
 				(mergeToRightAction)->{
 					filemanager.MergeToRight();
@@ -104,7 +141,6 @@ public class ViewController implements IViewController{
 		
 		mainFrame.setFilePanelContents(whichPanel, contents.toString());
 		mainFrame.setFilePanelName(whichPanel, file.getPath());
-		System.out.println("hi");
 	}
 	
 }

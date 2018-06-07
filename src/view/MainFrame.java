@@ -147,8 +147,13 @@ public class MainFrame extends JFrame implements IMainFrame{
 		FilePanel filePanel = getFilePanelById(idFilePanel);
 		if (filePanel == null) return;
 		filePanel.setLineColor(lineNo, LineColor.getLineColor(lineColor));
-		
-		
+	}
+	
+	@Override
+	public void setFilePanelLineColorSize(int idFilePanel, int size) {
+		FilePanel filePanel = getFilePanelById(idFilePanel);
+		if (filePanel == null) return;
+		filePanel.setLineColorSize(size);
 	}
 
 	@Override

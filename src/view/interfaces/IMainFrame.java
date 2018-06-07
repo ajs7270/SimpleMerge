@@ -18,6 +18,7 @@ public interface IMainFrame {
 	public int getFilePanelLineColor(int idFilePanel, int lineNo);
 	public void setFilePanelLineColor(int idFilePanel, int lineNo, int lineColor);
 	public void paintFilePanelLineColor(int idFilePanel);
+	public void setFilePanelLineColorSize(int idFilePanel, int size);
 
 	public List<Integer> getFilePanelDraggeedLine(int idFilePanel);
 	

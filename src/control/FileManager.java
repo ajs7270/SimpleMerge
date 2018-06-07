@@ -7,6 +7,7 @@ import control.interfaces.IFileManager;
 import model.Edit;
 import model.File;
 import model.Merge;
+import model.Status;
 import model.compare;
 import view.MainFrame;
 
@@ -139,12 +140,30 @@ public class FileManager implements IFileManager{
 		
 	}
 	
+	// ###################################################
+	// PART: Compare
+	// ###################################################
 	
+	@Override
 	public void Compare(){
-		compare.setFiles(leftfile_contents, rightfile_contents);
+		compare.setFiles(left_file.getData(), right_file.getData());
 		compare.lcs();
 	}
+	
 
+	@Override
+	public List<Status> getLeftLineStatus() {
+		return compare.getStatus("L");
+	}
+
+	@Override
+	public List<Status> getRightLineStatus() {
+		return compare.getStatus("R");
+	}
+	
+	// ###################################################
+	// PART: Save
+	// ###################################################
 	
 	// Save file
 	public void leftFileSave(){
@@ -184,5 +203,6 @@ public class FileManager implements IFileManager{
 		System.out.println("save it! " + file.getData().size());
 		
 	}
+
 
 }

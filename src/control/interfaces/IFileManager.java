@@ -1,5 +1,9 @@
 package control.interfaces;
 
+import java.util.List;
+
+import model.Status;
+
 public interface IFileManager {
 
 	public void leftFileLoad();
@@ -16,4 +20,9 @@ public interface IFileManager {
 	
 	public void leftFileSave();
 	public void rightFileSave();
+	
+	public void Compare();
+	public List<Status> getLeftLineStatus();
+	public List<Status> getRightLineStatus();
+	
 }

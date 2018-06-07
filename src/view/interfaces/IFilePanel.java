@@ -26,6 +26,7 @@ public interface IFilePanel {
 	public LineColor getLineColor(int lineNum);
 	public void setLineColor(int lineNum, LineColor color);
 	public void paintLineColor();
+	public void setLineColorSize(int size);
 	
 	public void setLoadAction(ActionListener action);
 	public void setEditAction(ActionListener action);

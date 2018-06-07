@@ -252,6 +252,14 @@ public class FilePanel extends JPanel implements IFilePanel{
             }
         }
 	}
+	
+	@Override
+	public void setLineColorSize(int size) {
+		lineColor = new ArrayList<>();
+		for (int i = 0; i < size - lineColor.size(); i++) {
+			lineColor.add(LineColor.LINE_BLANK);
+		}
+	}
 
 	@Override
 	public void setLoadAction(ActionListener action) {
