@@ -20,6 +20,7 @@ public class File {
 	private String path = "[No File]";
 	private List<String> data = new LinkedList<String>();
 	private boolean isLoad = false;
+	private String OSname = System.getProperty("os.name").toLowerCase();
 	
 	private JFrame window;
 	private JFileChooser myFileChooser;
@@ -91,7 +92,12 @@ public class File {
 				StringBuilder sb = new StringBuilder();
 				while (it.hasNext()) {
 					sb.append(it.next());
-					sb.append("\r\n");
+					//Windows 개행
+					if(OSname.startsWith("windows"))
+						sb.append("\r\n");
+					//Linux Mac 개행
+					else
+						sb.append("\n");
 				}
 
 				// 파일에 저장
